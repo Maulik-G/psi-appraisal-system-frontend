@@ -71,10 +71,10 @@ export function LoginPage() {
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
-          <div className="w-10 h-10 bg-zinc-900 rounded-xl flex items-center justify-center mx-auto mb-4">
-            <span className="text-white font-bold text-sm">P</span>
+          <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4">
+            <img src="/favicon.png" alt="Logo" className="w-20 h-20" />
           </div>
-          <h1 className="text-xl font-semibold text-zinc-900 tracking-tight">PSI Appraisal</h1>
+          <h1 className="text-xl font-semibold text-zinc-900 tracking-tight">Appraisal System</h1>
           <p className="text-sm text-zinc-500 mt-1">Performance Management System</p>
         </div>
 

@@ -51,10 +51,10 @@ export function Sidebar({ onClose }: SidebarProps) {
       {/* Logo */}
       <div className="px-5 h-14 flex items-center justify-between border-b border-zinc-100 shrink-0">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-zinc-900 rounded-lg flex items-center justify-center">
-            <span className="text-white text-xs font-bold">P</span>
+          <div className="w-12 h-12 rounded-lg flex items-center justify-center">
+            <img src="/favicon.png" alt="Logo" className="w-8 h-8" />
           </div>
-          <span className="text-sm font-semibold text-zinc-900 tracking-tight">PSI Appraisal</span>
+          <span className="text-sm font-semibold text-zinc-900 tracking-tight">Appraisal System</span>
         </div>
         {onClose && (
           <button onClick={onClose} className="text-zinc-400 hover:text-zinc-600 p-1 rounded">
