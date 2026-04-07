@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useNavigate } from 'react-router-dom'
 import { getTeamAppraisals, getMyAppraisals } from '../../api/appraisals'
 import { getTeamMembers } from '../../api/users'
-import { Card, CardContent } from '../../components/ui/card'
+import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
 import { Button } from '../../components/ui/button'
 import { StatusBadge } from '../../components/StatusBadge'
 import { RatingStars } from '../../components/RatingStars'
@@ -61,6 +61,51 @@ export function ManagerDashboard() {
         <p className="text-violet-700/80 text-sm mt-1">{user?.jobTitle}</p>
       </div>
 
+      {/* Manager Review Guide */}
+      <Card className="bg-gradient-to-br from-slate-800 to-slate-900 text-white border-none shadow-lg overflow-hidden relative">
+        <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+          <CheckCircle size={120} />
+        </div>
+        <CardHeader>
+          <CardTitle className="text-white flex items-center gap-2 text-lg font-medium">
+            <Clock className="w-5 h-5 text-violet-400" />
+            Manager Review Workflow
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 relative z-10">
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 w-6 h-6 rounded-md bg-violet-500/20 flex items-center justify-center font-bold text-violet-400 border border-violet-500/30 text-xs">1</div>
+              <div>
+                <p className="font-semibold text-xs uppercase tracking-wider text-violet-300">Track Progress</p>
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">Monitor team self-assessments and goal achievements in real-time.</p>
+              </div>
+            </div>
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 w-6 h-6 rounded-md bg-violet-500/20 flex items-center justify-center font-bold text-violet-400 border border-violet-500/30 text-xs">2</div>
+              <div>
+                <p className="font-semibold text-xs uppercase tracking-wider text-violet-300">Evaluate</p>
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">Review employee input, assign ratings, and add detailed performance feedback.</p>
+              </div>
+            </div>
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 w-6 h-6 rounded-md bg-violet-500/20 flex items-center justify-center font-bold text-violet-400 border border-violet-500/30 text-xs">3</div>
+              <div>
+                <p className="font-semibold text-xs uppercase tracking-wider text-violet-300">Submit to HR</p>
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">Finalize your review and submit it to HR for final organizational clearance.</p>
+              </div>
+            </div>
+            <div className="flex gap-4 items-start">
+              <div className="flex-shrink-0 w-6 h-6 rounded-md bg-violet-500/20 flex items-center justify-center font-bold text-violet-400 border border-violet-500/30 text-xs">4</div>
+              <div>
+                <p className="font-semibold text-xs uppercase tracking-wider text-violet-300">Sync</p>
+                <p className="text-xs text-slate-300 mt-1 leading-relaxed">Once approved, conduct the performance meeting to discuss outcomes.</p>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
@@ -100,7 +145,9 @@ export function ManagerDashboard() {
             </Card>
           ) : (
             <div className="space-y-2">
-              {myAppraisals.map(a => (
+              {[...myAppraisals]
+                .sort((a, b) => new Date(b.cycleStartDate).getTime() - new Date(a.cycleStartDate).getTime())
+                .map(a => (
                 <Card key={a.id}>
                   <CardContent className="py-4">
                     <div className="flex items-center justify-between gap-4 flex-wrap">
@@ -159,7 +206,9 @@ export function ManagerDashboard() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-slate-50">
-                    {teamAppraisals.map(a => (
+                    {[...teamAppraisals]
+                      .sort((a, b) => new Date(b.cycleStartDate).getTime() - new Date(a.cycleStartDate).getTime())
+                      .map(a => (
                       <tr key={a.id} className="hover:bg-violet-50/50 transition-colors">
                         <td className="py-3 px-3 font-medium text-violet-950">{a.employeeName}</td>
                         <td className="py-3 px-3 text-slate-600 text-xs">{a.cycleName}</td>

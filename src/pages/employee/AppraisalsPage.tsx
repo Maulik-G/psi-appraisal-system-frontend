@@ -44,7 +44,9 @@ export function AppraisalsPage() {
         </div>
       ) : (
         <div className="grid gap-4">
-          {appraisals.map(a => (
+          {[...appraisals]
+            .sort((a, b) => new Date(b.cycleStartDate).getTime() - new Date(a.cycleStartDate).getTime())
+            .map(a => (
             <Card key={a.id} className="hover:shadow-md transition-shadow">
               <CardContent className="pt-6">
                 <div className="flex items-start justify-between gap-4">

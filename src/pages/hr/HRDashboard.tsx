@@ -44,7 +44,7 @@ export function HRDashboard() {
   }, [users])
 
   const approve = useMutation({
-    mutationFn: (id: number) => approveAppraisal(id),
+    mutationFn: (id: number) => approveAppraisal(id, { hrComments: '' }),
     onSuccess: () => {
       toast.success('Appraisal approved')
       // Refresh appraisals
@@ -67,12 +67,14 @@ export function HRDashboard() {
 
   // Apply filters
   const filtered = useMemo(() => {
-    return appraisals.filter(a => {
-      if (filterStatus && a.appraisalStatus !== filterStatus) return false
-      if (filterDept && a.employeeDepartment !== filterDept) return false
-      if (filterCycle && a.cycleName !== filterCycle) return false
-      return true
-    })
+    return appraisals
+      .filter(a => {
+        if (filterStatus && a.appraisalStatus !== filterStatus) return false
+        if (filterDept && a.employeeDepartment !== filterDept) return false
+        if (filterCycle && a.cycleName !== filterCycle) return false
+        return true
+      })
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   }, [appraisals, filterStatus, filterDept, filterCycle])
 
   const hasFilters = filterStatus || filterDept || filterCycle

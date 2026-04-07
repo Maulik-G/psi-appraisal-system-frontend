@@ -35,10 +35,10 @@ interface SidebarProps {
 }
 
 export function Sidebar({ onClose }: SidebarProps) {
-  const { user, logout } = useAuth()
+  const { user, activeRole, logout } = useAuth()
   if (!user) return null
 
-  const links = user.role === 'HR' ? hrLinks : user.role === 'MANAGER' ? managerLinks : employeeLinks
+  const links = activeRole === 'HR' ? hrLinks : activeRole === 'MANAGER' ? managerLinks : employeeLinks
 
   return (
     <aside className="w-64 bg-gradient-to-b from-violet-950 to-violet-900 border-r border-violet-800 flex flex-col h-screen shadow-xl shadow-violet-900/20">

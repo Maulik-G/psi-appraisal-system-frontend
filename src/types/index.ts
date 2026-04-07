@@ -10,7 +10,7 @@ export type AppraisalStatus =
   | 'ACKNOWLEDGED'
 
 export type CycleStatus = 'DRAFT' | 'ACTIVE' | 'CLOSED'
-export type GoalStatus = 'NOT_STARTED' | 'IN_PROGESS' | 'COMPLETED' | 'CANCELLED'
+export type GoalStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'
 export type FeedbackType = 'SELF' | 'PEER' | 'MANAGER'
 export type NotificationType =
   | 'CYCLE_STARTED'
@@ -69,6 +69,7 @@ export interface Appraisal {
   appraisalStatus: AppraisalStatus
   submittedAt: string | null
   approvedAt: string | null
+  hrComments: string | null
   createdAt: string
 }
 

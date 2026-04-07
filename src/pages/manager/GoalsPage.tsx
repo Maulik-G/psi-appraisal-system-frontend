@@ -43,11 +43,17 @@ export function ManagerGoalsPage() {
   const openEdit = (g: Goal) => { setEditing(g); setForm({ appraisalId: String(g.appraisalId), title: g.title, description: g.description, dueDate: g.dueDate }); setOpen(true) }
 
   const save = useMutation({
-    mutationFn: () => editing
-      ? updateGoal(editing.id, user!.id, { title: form.title, description: form.description, dueDate: form.dueDate })
-      : createGoal(user!.id, { appraisalId: Number(form.appraisalId), title: form.title, description: form.description, dueDate: form.dueDate }),
+    mutationFn: () => {
+      if (!editing && !form.appraisalId) throw new Error('Appraisal is required')
+      return editing
+        ? updateGoal(editing.id, user!.id, { title: form.title, description: form.description, dueDate: form.dueDate })
+        : createGoal(user!.id, { appraisalId: Number(form.appraisalId), title: form.title, description: form.description, dueDate: form.dueDate })
+    },
     onSuccess: () => { toast.success(editing ? 'Goal updated' : 'Goal created'); setOpen(false); qc.invalidateQueries({ queryKey: ['all-team-goals'] }) },
-    onError: () => toast.error('Failed to save goal'),
+    onError: (err: any) => {
+      const msg = err.response?.data?.message || err.message
+      toast.error(msg === 'Appraisal is required' ? 'Please select an appraisal' : `Failed to save goal: ${msg}`)
+    },
   })
 
   const remove = useMutation({

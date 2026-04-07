@@ -32,8 +32,8 @@ export const saveManagerReviewDraft = (id: number, managerId: number, data: obje
 export const submitManagerReview = (id: number, managerId: number, data: object) =>
   api.put<ApiResponse<Appraisal>>(`/api/appraisals/${id}/manager-review/submit?managerId=${managerId}`, data).then(r => r.data.data)
 
-export const approveAppraisal = (id: number) =>
-  api.patch<ApiResponse<Appraisal>>(`/api/appraisals/${id}/approve`).then(r => r.data.data)
+export const approveAppraisal = (id: number, data: { hrComments: string }) =>
+  api.patch<ApiResponse<Appraisal>>(`/api/appraisals/${id}/approve`, data).then(r => r.data.data)
 
 export const acknowledgeAppraisal = (id: number, employeeId: number) =>
   api.patch<ApiResponse<Appraisal>>(`/api/appraisals/${id}/acknowledge?employeeId=${employeeId}`).then(r => r.data.data)

@@ -15,7 +15,7 @@ export function EmployeeGoalsPage() {
   const { user } = useAuth()
   const qc = useQueryClient()
   const [selected, setSelected] = useState<Goal | null>(null)
-  const [status, setStatus] = useState('IN_PROGESS')
+  const [status, setStatus] = useState('IN_PROGRESS')
 
   const { data: goals = [], isLoading } = useQuery({
     queryKey: ['my-goals', user?.id],
@@ -89,7 +89,7 @@ export function EmployeeGoalsPage() {
             <label className="block text-xs font-medium text-slate-700 mb-1.5">Status</label>
             <Select value={status} onChange={e => setStatus(e.target.value)}>
               <option value="NOT_STARTED">Not Started</option>
-              <option value="IN_PROGESS">In Progress</option>
+              <option value="IN_PROGRESS">In Progress</option>
               <option value="COMPLETED">Completed</option>
               <option value="CANCELLED">Cancelled</option>
             </Select>

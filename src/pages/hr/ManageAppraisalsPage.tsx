@@ -4,7 +4,7 @@ import { useQuery, useMutation } from '@tanstack/react-query'
 import { getUsers } from '../../api/users'
 import { getDepartments } from '../../api/departments'
 import { approveAppraisal } from '../../api/appraisals'
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
+import { Card } from '../../components/ui/card'
 import { Button } from '../../components/ui/button'
 import { StatusBadge } from '../../components/StatusBadge'
 import { Badge } from '../../components/ui/badge'
@@ -58,7 +58,7 @@ export function ManageAppraisalsPage() {
   }, [users])
 
   const approve = useMutation({
-    mutationFn: (id: number) => approveAppraisal(id),
+    mutationFn: (id: number) => approveAppraisal(id, { hrComments: '' }),
     onSuccess: (updated) => {
       toast.success('Appraisal approved')
       setAllAppraisals(prev => prev.map(a => a.id === updated.id ? updated : a))

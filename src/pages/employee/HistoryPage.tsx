@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { getEmployeeHistory } from '../../api/reports'
-import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
+import { Card, CardContent } from '../../components/ui/card'
 import { StatusBadge } from '../../components/StatusBadge'
 import { RatingStars } from '../../components/RatingStars'
 import { format } from 'date-fns'
@@ -33,7 +33,9 @@ export function EmployeeHistoryPage() {
         </div>
       ) : (
         <div className="space-y-4">
-          {history.cycles.map((c, i) => (
+          {[...history.cycles]
+            .sort((a, b) => new Date(b.cycleStartDate).getTime() - new Date(a.cycleStartDate).getTime())
+            .map((c, i) => (
             <Card key={i}>
               <CardContent className="pt-6">
                 <div className="flex items-start justify-between gap-4 flex-wrap">

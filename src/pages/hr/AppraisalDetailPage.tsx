@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getAppraisalById, approveAppraisal } from '../../api/appraisals'
@@ -5,6 +6,7 @@ import { getGoalsByAppraisal } from '../../api/goals'
 import { getFeedbackByAppraisal } from '../../api/feedback'
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
 import { Button } from '../../components/ui/button'
+import { Textarea } from '../../components/ui/textarea'
 import { StatusBadge, GoalStatusBadge } from '../../components/StatusBadge'
 import { RatingStars } from '../../components/RatingStars'
 import { Badge } from '../../components/ui/badge'
@@ -19,6 +21,7 @@ export function HRAppraisalDetailPage() {
   const navigate = useNavigate()
   const qc = useQueryClient()
   const appraisalId = Number(id)
+  const [hrComments, setHrComments] = useState('')
 
   const { data: appraisal, isLoading } = useQuery({
     queryKey: ['appraisal', appraisalId],
@@ -39,7 +42,7 @@ export function HRAppraisalDetailPage() {
   })
 
   const approve = useMutation({
-    mutationFn: () => approveAppraisal(appraisalId),
+    mutationFn: () => approveAppraisal(appraisalId, { hrComments }),
     onSuccess: () => { toast.success('Appraisal approved'); qc.invalidateQueries({ queryKey: ['appraisal', appraisalId] }) },
     onError: () => toast.error('Failed to approve'),
   })
@@ -184,14 +187,36 @@ export function HRAppraisalDetailPage() {
         </CardContent>
       </Card>
 
+      {/* HR Comments (View Only) */}
+      {appraisal.hrComments && (
+        <Card>
+          <CardHeader><CardTitle>HR Comments</CardTitle></CardHeader>
+          <CardContent>
+            <p className="text-slate-600 bg-violet-50/50 rounded p-3 text-sm">{appraisal.hrComments}</p>
+          </CardContent>
+        </Card>
+      )}
+
       {/* Approve Action */}
       {appraisal.appraisalStatus === 'MANAGER_REVIEWED' && (
-        <div className="flex justify-end">
-          <Button onClick={() => approve.mutate()} disabled={approve.isPending} className="gap-2">
-            <CheckCircle size={16} />
-            {approve.isPending ? 'Approving...' : 'Approve Appraisal'}
-          </Button>
-        </div>
+        <Card className="border-violet-200 bg-violet-50/30">
+          <CardHeader><CardTitle className="text-sm">HR Approval & Final Comments</CardTitle></CardHeader>
+          <CardContent className="space-y-4">
+             <Textarea 
+               placeholder="Add final HR comments or feedback..."
+               className="bg-white"
+               rows={4}
+               value={hrComments}
+               onChange={(e) => setHrComments(e.target.value)}
+             />
+             <div className="flex justify-end">
+              <Button onClick={() => approve.mutate()} disabled={approve.isPending} className="gap-2">
+                <CheckCircle size={16} />
+                {approve.isPending ? 'Approving...' : 'Approve Appraisal'}
+              </Button>
+             </div>
+          </CardContent>
+        </Card>
       )}
     </div>
   )

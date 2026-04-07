@@ -37,22 +37,24 @@ import type { Role } from './types'
 const qc = new QueryClient({ defaultOptions: { queries: { retry: 1, staleTime: 30_000 } } })
 
 function RoleGuard({ allow, children }: { allow: Role[]; children: React.ReactNode }) {
-  const { user } = useAuth()
+  const { user, activeRole } = useAuth()
   if (!user) return <Navigate to="/login" replace />
-  if (!allow.includes(user.role)) {
-    const home = user.role === 'HR' ? '/hr/dashboard' : user.role === 'MANAGER' ? '/manager/dashboard' : '/employee/dashboard'
+  
+  const currentRole = activeRole || user.role
+  if (!allow.includes(currentRole)) {
+    const home = currentRole === 'HR' ? '/hr/dashboard' : currentRole === 'MANAGER' ? '/manager/dashboard' : '/employee/dashboard'
     return <Navigate to={home} replace />
   }
   return <>{children}</>
 }
 
 function AppRoutes() {
-  const { user } = useAuth()
+  const { user, activeRole } = useAuth()
 
   return (
     <Routes>
       <Route path="/login" element={user ? <Navigate to={
-        user.role === 'HR' ? '/hr/dashboard' : user.role === 'MANAGER' ? '/manager/dashboard' : '/employee/dashboard'
+        (activeRole || user.role) === 'HR' ? '/hr/dashboard' : (activeRole || user.role) === 'MANAGER' ? '/manager/dashboard' : '/employee/dashboard'
       } replace /> : <LoginPage />} />
 
       {/* HR */}

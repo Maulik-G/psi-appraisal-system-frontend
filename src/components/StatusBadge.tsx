@@ -18,7 +18,7 @@ export function StatusBadge({ status }: { status: AppraisalStatus }) {
 export function GoalStatusBadge({ status }: { status: GoalStatus }) {
   const map: Record<GoalStatus, { label: string; variant: 'secondary' | 'blue' | 'success' | 'destructive' }> = {
     NOT_STARTED: { label: 'Not Started', variant: 'secondary'   },
-    IN_PROGESS:  { label: 'In Progress', variant: 'blue'        },
+    IN_PROGRESS:  { label: 'In Progress', variant: 'blue'        },
     COMPLETED:   { label: 'Completed',   variant: 'success'     },
     CANCELLED:   { label: 'Cancelled',   variant: 'destructive' },
   }
