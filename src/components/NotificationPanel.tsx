@@ -52,21 +52,21 @@ export function NotificationPanel() {
     <div className="relative" ref={ref}>
       <button
         onClick={() => setOpen(o => !o)}
-        className="relative w-9 h-9 flex items-center justify-center rounded-lg text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors"
+        className="relative w-9 h-9 flex items-center justify-center rounded-lg text-violet-700/80 hover:bg-violet-50 hover:text-violet-950 transition-colors"
       >
         <Bell size={17} />
         {count > 0 && (
-          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-zinc-900 rounded-full" />
+          <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-violet-600 rounded-full" />
         )}
       </button>
 
       {open && (
-        <div className="absolute right-0 top-11 w-80 bg-white rounded-xl shadow-xl border border-zinc-200 z-50 overflow-hidden">
-          <div className="flex items-center justify-between px-4 py-3 border-b border-zinc-100">
+        <div className="absolute right-0 top-11 w-80 bg-white rounded-xl shadow-xl border border-violet-100 z-50 overflow-hidden">
+          <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-semibold text-zinc-900">Notifications</span>
+              <span className="text-sm font-semibold text-violet-950">Notifications</span>
               {count > 0 && (
-                <span className="bg-zinc-900 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
+                <span className="bg-violet-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-medium">
                   {count > 9 ? '9+' : count}
                 </span>
               )}
@@ -74,32 +74,32 @@ export function NotificationPanel() {
             {count > 0 && (
               <button
                 onClick={() => markAll.mutate()}
-                className="text-xs text-zinc-500 hover:text-zinc-900 transition-colors"
+                className="text-xs text-violet-700/80 hover:text-violet-950 transition-colors"
               >
                 Mark all read
               </button>
             )}
           </div>
 
-          <div className="max-h-80 overflow-y-auto divide-y divide-zinc-50">
+          <div className="max-h-80 overflow-y-auto divide-y divide-slate-50">
             {notifications.length === 0 ? (
               <div className="py-10 text-center">
-                <Bell size={20} className="text-zinc-300 mx-auto mb-2" />
-                <p className="text-sm text-zinc-400">No notifications</p>
+                <Bell size={20} className="text-slate-300 mx-auto mb-2" />
+                <p className="text-sm text-violet-600/70">No notifications</p>
               </div>
             ) : (
               notifications.slice(0, 10).map(n => (
                 <div
                   key={n.id}
                   onClick={() => !n.isRead && markOne.mutate(n.id)}
-                  className={`px-4 py-3 cursor-pointer hover:bg-zinc-50 transition-colors ${!n.isRead ? 'bg-zinc-50' : ''}`}
+                  className={`px-4 py-3 cursor-pointer hover:bg-violet-50/50 transition-colors ${!n.isRead ? 'bg-violet-50/50' : ''}`}
                 >
                   <div className="flex items-start gap-3">
-                    {!n.isRead && <div className="w-1.5 h-1.5 bg-zinc-900 rounded-full mt-1.5 shrink-0" />}
+                    {!n.isRead && <div className="w-1.5 h-1.5 bg-violet-600 rounded-full mt-1.5 shrink-0" />}
                     <div className={!n.isRead ? '' : 'pl-4'}>
-                      <p className="text-sm font-medium text-zinc-900 leading-tight">{n.title}</p>
-                      <p className="text-xs text-zinc-500 mt-0.5 leading-relaxed">{n.message}</p>
-                      <p className="text-xs text-zinc-400 mt-1">
+                      <p className="text-sm font-medium text-violet-950 leading-tight">{n.title}</p>
+                      <p className="text-xs text-violet-700/80 mt-0.5 leading-relaxed">{n.message}</p>
+                      <p className="text-xs text-violet-600/70 mt-1">
                         {formatDistanceToNow(new Date(n.createdAt), { addSuffix: true })}
                       </p>
                     </div>

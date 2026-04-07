@@ -25,7 +25,7 @@ export function RatingStars({ value, onChange, readonly = false }: RatingStarsPr
             size={18}
             className={cn(
               'transition-colors',
-              star <= value ? 'fill-zinc-900 text-zinc-900' : 'text-zinc-200 fill-zinc-100'
+              star <= value ? 'fill-slate-900 text-violet-950' : 'text-slate-200 fill-slate-100'
             )}
           />
         </button>

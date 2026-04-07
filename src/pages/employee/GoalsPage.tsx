@@ -41,14 +41,14 @@ export function EmployeeGoalsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 tracking-tight">My Goals</h1>
-        <p className="text-zinc-500 text-sm mt-1">{goals.length} goal{goals.length !== 1 ? 's' : ''} assigned</p>
+        <h1 className="text-2xl font-semibold text-violet-950 tracking-tight">My Goals</h1>
+        <p className="text-violet-700/80 text-sm mt-1">{goals.length} goal{goals.length !== 1 ? 's' : ''} assigned</p>
       </div>
 
       {isLoading ? (
-        <p className="text-zinc-400 text-sm">Loading...</p>
+        <p className="text-violet-600/70 text-sm">Loading...</p>
       ) : goals.length === 0 ? (
-        <div className="text-center py-16 text-zinc-400">
+        <div className="text-center py-16 text-violet-600/70">
           <p className="text-sm font-medium">No goals yet</p>
           <p className="text-xs mt-1">Your manager will assign goals to you.</p>
         </div>
@@ -62,11 +62,11 @@ export function EmployeeGoalsPage() {
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2.5 flex-wrap">
-                        <h3 className="font-medium text-zinc-900">{g.title}</h3>
+                        <h3 className="font-medium text-violet-950">{g.title}</h3>
                         <GoalStatusBadge status={g.status} />
                       </div>
-                      {g.description && <p className="text-sm text-zinc-500 mt-1">{g.description}</p>}
-                      <p className={`text-xs mt-1.5 ${overdue ? 'text-red-500 font-medium' : 'text-zinc-400'}`}>
+                      {g.description && <p className="text-sm text-violet-700/80 mt-1">{g.description}</p>}
+                      <p className={`text-xs mt-1.5 ${overdue ? 'text-red-500 font-medium' : 'text-violet-600/70'}`}>
                         Due {format(new Date(g.dueDate), 'MMM d, yyyy')}{overdue ? ' · Overdue' : ''}
                       </p>
                     </div>
@@ -86,7 +86,7 @@ export function EmployeeGoalsPage() {
       <Dialog open={!!selected} onClose={() => setSelected(null)} title={`Update Status — ${selected?.title ?? ''}`}>
         <form onSubmit={e => { e.preventDefault(); update.mutate() }} className="space-y-4">
           <div>
-            <label className="block text-xs font-medium text-zinc-700 mb-1.5">Status</label>
+            <label className="block text-xs font-medium text-slate-700 mb-1.5">Status</label>
             <Select value={status} onChange={e => setStatus(e.target.value)}>
               <option value="NOT_STARTED">Not Started</option>
               <option value="IN_PROGESS">In Progress</option>

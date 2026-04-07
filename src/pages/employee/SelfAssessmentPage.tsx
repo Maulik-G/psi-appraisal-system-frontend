@@ -63,8 +63,8 @@ export function SelfAssessmentPage() {
     onError: (e: any) => toast.error(e.response?.data?.message || 'Failed to submit'),
   })
 
-  if (isLoading) return <div className="text-slate-500 p-6">Loading...</div>
-  if (!appraisal) return <div className="text-slate-500 p-6">Appraisal not found.</div>
+  if (isLoading) return <div className="text-violet-700/80 p-6">Loading...</div>
+  if (!appraisal) return <div className="text-violet-700/80 p-6">Appraisal not found.</div>
 
   const canEdit = appraisal.appraisalStatus === 'PENDING' || appraisal.appraisalStatus === 'EMPLOYEE_DRAFT'
   if (!canEdit) {
@@ -79,30 +79,30 @@ export function SelfAssessmentPage() {
       <div className="flex items-center gap-3">
         <Button variant="outline" size="sm" onClick={() => navigate(-1)}><ArrowLeft size={16} /></Button>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Self Assessment</h1>
-          <p className="text-slate-500 text-sm">{appraisal.cycleName} · Manager: {appraisal.managerName}</p>
+          <h1 className="text-2xl font-bold text-violet-950">Self Assessment</h1>
+          <p className="text-violet-700/80 text-sm">{appraisal.cycleName} · Manager: {appraisal.managerName}</p>
         </div>
       </div>
 
       <Card>
         <CardContent className="pt-4 grid grid-cols-2 gap-3 text-sm">
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide">Cycle</p>
-            <p className="font-medium text-slate-900">{appraisal.cycleName}</p>
+            <p className="text-xs text-violet-700/80 uppercase tracking-wide">Cycle</p>
+            <p className="font-medium text-violet-950">{appraisal.cycleName}</p>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide">Period</p>
-            <p className="font-medium text-slate-900">
+            <p className="text-xs text-violet-700/80 uppercase tracking-wide">Period</p>
+            <p className="font-medium text-violet-950">
               {format(new Date(appraisal.cycleStartDate), 'MMM d')} — {format(new Date(appraisal.cycleEndDate), 'MMM d, yyyy')}
             </p>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide">Status</p>
+            <p className="text-xs text-violet-700/80 uppercase tracking-wide">Status</p>
             <div className="mt-1"><StatusBadge status={appraisal.appraisalStatus} /></div>
           </div>
           {isDraft && (
             <div>
-              <p className="text-xs text-slate-500 uppercase tracking-wide">Note</p>
+              <p className="text-xs text-violet-700/80 uppercase tracking-wide">Note</p>
               <p className="text-xs text-amber-600 font-medium mt-1">Draft saved — not yet submitted to manager</p>
             </div>
           )}
@@ -143,7 +143,7 @@ export function SelfAssessmentPage() {
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-2">Self Rating *</label>
               <RatingStars value={form.selfRating} onChange={v => setForm(f => ({ ...f, selfRating: v }))} />
-              {form.selfRating === 0 && <p className="text-xs text-slate-400 mt-1">Click a star to rate yourself</p>}
+              {form.selfRating === 0 && <p className="text-xs text-violet-600/70 mt-1">Click a star to rate yourself</p>}
             </div>
 
             <div className="flex gap-3 pt-2">
@@ -177,7 +177,7 @@ export function SelfAssessmentPage() {
               </Button>
             </div>
 
-            <p className="text-xs text-slate-400 text-center">
+            <p className="text-xs text-violet-600/70 text-center">
               Save Draft keeps your progress editable. Submit sends it to your manager and locks the form.
             </p>
           </div>

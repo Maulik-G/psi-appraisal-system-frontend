@@ -85,15 +85,15 @@ export function HRDashboard() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 tracking-tight">HR Dashboard</h1>
-        <p className="text-zinc-500 text-sm mt-1">Overview of all appraisals and employees</p>
+        <h1 className="text-2xl font-semibold text-violet-950 tracking-tight">HR Dashboard</h1>
+        <p className="text-violet-700/80 text-sm mt-1">Overview of all appraisals and employees</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: 'Active Employees', value: activeEmployees, icon: Users, color: 'text-zinc-600' },
-          { label: 'Total Appraisals', value: appraisals.length, icon: ClipboardCheck, color: 'text-zinc-600' },
+          { label: 'Active Employees', value: activeEmployees, icon: Users, color: 'text-slate-600' },
+          { label: 'Total Appraisals', value: appraisals.length, icon: ClipboardCheck, color: 'text-slate-600' },
           { label: 'Pending Approval', value: pendingApproval, icon: Clock, color: 'text-amber-600' },
           { label: 'Completed', value: completed, icon: CheckCircle, color: 'text-emerald-600' },
         ].map(({ label, value, icon: Icon, color }) => (
@@ -101,8 +101,8 @@ export function HRDashboard() {
             <CardContent className="pt-5 pb-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs text-zinc-500">{label}</p>
-                  <p className="text-2xl font-semibold text-zinc-900 mt-1 tracking-tight">{value}</p>
+                  <p className="text-xs text-violet-700/80">{label}</p>
+                  <p className="text-2xl font-semibold text-violet-950 mt-1 tracking-tight">{value}</p>
                 </div>
                 <Icon size={18} className={color} />
               </div>
@@ -118,7 +118,7 @@ export function HRDashboard() {
             <CardTitle>
               All Appraisals
               {hasFilters && (
-                <span className="ml-2 text-xs font-normal text-zinc-400">
+                <span className="ml-2 text-xs font-normal text-violet-600/70">
                   {filtered.length} of {appraisals.length}
                 </span>
               )}
@@ -169,31 +169,31 @@ export function HRDashboard() {
         </CardHeader>
         <CardContent>
           {appraisals.length === 0 ? (
-            <p className="text-center text-zinc-400 py-10 text-sm">No appraisals found. Create one to get started.</p>
+            <p className="text-center text-violet-600/70 py-10 text-sm">No appraisals found. Create one to get started.</p>
           ) : filtered.length === 0 ? (
             <div className="text-center py-10">
-              <p className="text-zinc-400 text-sm">No appraisals match the selected filters.</p>
+              <p className="text-violet-600/70 text-sm">No appraisals match the selected filters.</p>
               <Button variant="ghost" size="sm" onClick={clearFilters} className="mt-2 text-xs">Clear filters</Button>
             </div>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-zinc-100">
+                  <tr className="border-b border-slate-100">
                     {['Employee', 'Department', 'Manager', 'Cycle', 'Status', 'Created', 'Actions'].map(h => (
-                      <th key={h} className="text-left py-2.5 px-3 text-xs font-medium text-zinc-500 uppercase tracking-wide">{h}</th>
+                      <th key={h} className="text-left py-2.5 px-3 text-xs font-medium text-violet-700/80 uppercase tracking-wide">{h}</th>
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-zinc-50">
+                <tbody className="divide-y divide-slate-50">
                   {filtered.map(a => (
-                    <tr key={a.id} className="hover:bg-zinc-50 transition-colors">
-                      <td className="py-3 px-3 font-medium text-zinc-900">{a.employeeName}</td>
-                      <td className="py-3 px-3 text-zinc-500">{a.employeeDepartment || '—'}</td>
-                      <td className="py-3 px-3 text-zinc-500">{a.managerName}</td>
-                      <td className="py-3 px-3 text-zinc-700">{a.cycleName}</td>
+                    <tr key={a.id} className="hover:bg-violet-50/50 transition-colors">
+                      <td className="py-3 px-3 font-medium text-violet-950">{a.employeeName}</td>
+                      <td className="py-3 px-3 text-violet-700/80">{a.employeeDepartment || '—'}</td>
+                      <td className="py-3 px-3 text-violet-700/80">{a.managerName}</td>
+                      <td className="py-3 px-3 text-slate-700">{a.cycleName}</td>
                       <td className="py-3 px-3"><StatusBadge status={a.appraisalStatus} /></td>
-                      <td className="py-3 px-3 text-zinc-400 text-xs">{format(new Date(a.createdAt), 'MMM d, yyyy')}</td>
+                      <td className="py-3 px-3 text-violet-600/70 text-xs">{format(new Date(a.createdAt), 'MMM d, yyyy')}</td>
                       <td className="py-3 px-3">
                         <div className="flex gap-2">
                           <Button size="sm" variant="outline" onClick={() => navigate(`/hr/appraisals/${a.id}`)}>View</Button>

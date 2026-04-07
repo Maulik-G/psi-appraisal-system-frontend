@@ -27,11 +27,17 @@ export function CreateAppraisalPage() {
   const { data: users = [] } = useQuery({ queryKey: ['users'], queryFn: getUsers })
   const { data: departments = [] } = useQuery({ queryKey: ['departments'], queryFn: getDepartments })
 
-  const employees = users.filter(u => u.role === 'EMPLOYEE' && u.isActive)
-  const managers = users.filter(u => u.role === 'MANAGER' && u.isActive)
+  const employees = users.filter((u: any) => {
+    const active = u.isActive ?? u.active ?? true;
+    return (u.role === 'EMPLOYEE' || u.role === 'MANAGER') && active;
+  })
+  const managers = users.filter((u: any) => {
+    const active = u.isActive ?? u.active ?? true;
+    return active && u.id !== Number(form.employeeId);
+  })
 
   const handleEmployeeChange = (employeeId: string) => {
-    const emp = employees.find(e => e.id === Number(employeeId))
+    const emp = employees.find((e: any) => e.id === Number(employeeId))
     setForm(f => ({ ...f, employeeId, managerId: emp?.managerId?.toString() || '' }))
   }
 
@@ -66,16 +72,16 @@ export function CreateAppraisalPage() {
   const cycleFields = (
     <div className="space-y-4">
       <div>
-        <label className="block text-xs font-medium text-zinc-700 mb-1.5">Cycle Name *</label>
+        <label className="block text-xs font-medium text-slate-700 mb-1.5">Cycle Name *</label>
         <Input placeholder="e.g. Q1 2026" value={form.cycleName} onChange={e => setForm(f => ({ ...f, cycleName: e.target.value }))} required />
       </div>
       <div className="grid grid-cols-2 gap-3">
         <div>
-          <label className="block text-xs font-medium text-zinc-700 mb-1.5">Start Date *</label>
+          <label className="block text-xs font-medium text-slate-700 mb-1.5">Start Date *</label>
           <Input type="date" value={form.cycleStartDate} onChange={e => setForm(f => ({ ...f, cycleStartDate: e.target.value }))} required />
         </div>
         <div>
-          <label className="block text-xs font-medium text-zinc-700 mb-1.5">End Date *</label>
+          <label className="block text-xs font-medium text-slate-700 mb-1.5">End Date *</label>
           <Input type="date" value={form.cycleEndDate} onChange={e => setForm(f => ({ ...f, cycleEndDate: e.target.value }))} required />
         </div>
       </div>
@@ -85,8 +91,8 @@ export function CreateAppraisalPage() {
   return (
     <div className="max-w-2xl space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 tracking-tight">Create Appraisal</h1>
-        <p className="text-zinc-500 text-sm mt-1">Start a new appraisal cycle</p>
+        <h1 className="text-2xl font-semibold text-violet-950 tracking-tight">Create Appraisal</h1>
+        <p className="text-violet-700/80 text-sm mt-1">Start a new appraisal cycle</p>
       </div>
 
       {/* Mode selector */}
@@ -103,13 +109,13 @@ export function CreateAppraisalPage() {
             className={cn(
               'flex flex-col items-start gap-1.5 p-4 rounded-xl border text-left transition-all',
               mode === key
-                ? 'border-zinc-900 bg-zinc-900 text-white'
-                : 'border-zinc-200 bg-white text-zinc-700 hover:border-zinc-400'
+                ? 'border-slate-900 bg-violet-600 text-white'
+                : 'border-violet-100 bg-white text-slate-700 hover:border-slate-400'
             )}
           >
             <Icon size={16} />
             <p className="text-xs font-semibold">{label}</p>
-            <p className={cn('text-xs', mode === key ? 'text-zinc-300' : 'text-zinc-400')}>{desc}</p>
+            <p className={cn('text-xs', mode === key ? 'text-slate-300' : 'text-violet-600/70')}>{desc}</p>
           </button>
         ))}
       </div>
@@ -126,10 +132,10 @@ export function CreateAppraisalPage() {
             <form onSubmit={e => { e.preventDefault(); createSingle.mutate() }} className="space-y-4">
               {cycleFields}
               <div>
-                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Employee *</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1.5">Employee *</label>
                 <Select value={form.employeeId} onChange={e => handleEmployeeChange(e.target.value)} required>
                   <option value="">Select employee</option>
-                  {employees.map(e => (
+                  {employees.map((e: any) => (
                     <option key={e.id} value={e.id}>
                       {e.fullName} — {e.jobTitle}{e.departmentName ? ` (${e.departmentName})` : ''}
                     </option>
@@ -137,10 +143,10 @@ export function CreateAppraisalPage() {
                 </Select>
               </div>
               <div>
-                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Manager *</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1.5">Manager *</label>
                 <Select value={form.managerId} onChange={e => setForm(f => ({ ...f, managerId: e.target.value }))} required>
                   <option value="">Select manager</option>
-                  {managers.map(m => <option key={m.id} value={m.id}>{m.fullName}</option>)}
+                  {managers.map((m: any) => <option key={m.id} value={m.id}>{m.fullName}</option>)}
                 </Select>
               </div>
               <Button type="submit" disabled={createSingle.isPending} className="w-full">
@@ -153,13 +159,13 @@ export function CreateAppraisalPage() {
             <form onSubmit={e => { e.preventDefault(); createBulk.mutate() }} className="space-y-4">
               {cycleFields}
               <div>
-                <label className="block text-xs font-medium text-zinc-700 mb-1.5">Department *</label>
+                <label className="block text-xs font-medium text-slate-700 mb-1.5">Department *</label>
                 <Select value={form.departmentId} onChange={e => setForm(f => ({ ...f, departmentId: e.target.value }))} required>
                   <option value="">Select department</option>
                   {departments.map(d => <option key={d.id} value={d.id}>{d.name}</option>)}
                 </Select>
               </div>
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-violet-600/70">
                 Creates one appraisal per active employee in the selected department. Employees without a manager are skipped.
               </p>
               <Button type="submit" disabled={createBulk.isPending} className="w-full">
@@ -171,7 +177,7 @@ export function CreateAppraisalPage() {
           {mode === 'all' && (
             <form onSubmit={e => { e.preventDefault(); createBulk.mutate() }} className="space-y-4">
               {cycleFields}
-              <p className="text-xs text-zinc-400">
+              <p className="text-xs text-violet-600/70">
                 Creates one appraisal per active employee across the entire company. Employees without a manager are skipped. Already-existing appraisals for this cycle are skipped.
               </p>
               <Button type="submit" disabled={createBulk.isPending} className="w-full">
@@ -186,7 +192,7 @@ export function CreateAppraisalPage() {
       {bulkResult && (
         <Card>
           <CardContent className="pt-5 pb-5">
-            <p className="text-sm font-medium text-zinc-900 mb-3">Cycle created</p>
+            <p className="text-sm font-medium text-violet-950 mb-3">Cycle created</p>
             <div className="flex flex-wrap gap-3">
               <div className="flex items-center gap-2">
                 <Badge variant="success">{bulkResult.created} created</Badge>

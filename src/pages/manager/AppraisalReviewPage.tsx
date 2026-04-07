@@ -71,8 +71,8 @@ export function AppraisalReviewPage() {
     onError: (e: any) => toast.error(e.response?.data?.message || 'Failed to submit review'),
   })
 
-  if (isLoading) return <div className="text-slate-500 p-6">Loading...</div>
-  if (!appraisal) return <div className="text-slate-500 p-6">Appraisal not found.</div>
+  if (isLoading) return <div className="text-violet-700/80 p-6">Loading...</div>
+  if (!appraisal) return <div className="text-violet-700/80 p-6">Appraisal not found.</div>
 
   const canReview =
     appraisal.appraisalStatus === 'SELF_SUBMITTED' ||
@@ -88,42 +88,42 @@ export function AppraisalReviewPage() {
       <div className="flex items-center gap-3">
         <Button variant="outline" size="sm" onClick={() => navigate(-1)}><ArrowLeft size={16} /></Button>
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">
+          <h1 className="text-2xl font-bold text-violet-950">
             {canReview ? (isDraft ? 'Continue Review' : 'Review Appraisal') : 'Appraisal Detail'}
           </h1>
-          <p className="text-slate-500 text-sm">{appraisal.employeeName} · {appraisal.cycleName}</p>
+          <p className="text-violet-700/80 text-sm">{appraisal.employeeName} · {appraisal.cycleName}</p>
         </div>
       </div>
 
       <Card>
         <CardContent className="pt-6 grid grid-cols-2 gap-4">
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide">Employee</p>
-            <p className="font-semibold text-slate-900">{appraisal.employeeName}</p>
-            <p className="text-sm text-slate-500">
+            <p className="text-xs text-violet-700/80 uppercase tracking-wide">Employee</p>
+            <p className="font-semibold text-violet-950">{appraisal.employeeName}</p>
+            <p className="text-sm text-violet-700/80">
               {appraisal.employeeJobTitle}{appraisal.employeeDepartment ? ` · ${appraisal.employeeDepartment}` : ''}
             </p>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide">Cycle</p>
-            <p className="font-semibold text-slate-900">{appraisal.cycleName}</p>
-            <p className="text-sm text-slate-500">
+            <p className="text-xs text-violet-700/80 uppercase tracking-wide">Cycle</p>
+            <p className="font-semibold text-violet-950">{appraisal.cycleName}</p>
+            <p className="text-sm text-violet-700/80">
               {format(new Date(appraisal.cycleStartDate), 'MMM d, yyyy')} — {format(new Date(appraisal.cycleEndDate), 'MMM d, yyyy')}
             </p>
           </div>
           <div>
-            <p className="text-xs text-slate-500 uppercase tracking-wide">Status</p>
+            <p className="text-xs text-violet-700/80 uppercase tracking-wide">Status</p>
             <div className="mt-1"><StatusBadge status={appraisal.appraisalStatus} /></div>
           </div>
           {isDraft && (
             <div>
-              <p className="text-xs text-slate-500 uppercase tracking-wide">Note</p>
+              <p className="text-xs text-violet-700/80 uppercase tracking-wide">Note</p>
               <p className="text-xs text-amber-600 font-medium mt-1">Draft saved — not yet submitted to HR</p>
             </div>
           )}
           {appraisal.submittedAt && (
             <div>
-              <p className="text-xs text-slate-500 uppercase tracking-wide">Employee Submitted</p>
+              <p className="text-xs text-violet-700/80 uppercase tracking-wide">Employee Submitted</p>
               <p className="text-sm text-slate-700">{format(new Date(appraisal.submittedAt), 'MMM d, yyyy')}</p>
             </div>
           )}
@@ -135,15 +135,15 @@ export function AppraisalReviewPage() {
         <CardContent className="space-y-4">
           <div>
             <p className="text-sm font-medium text-slate-700 mb-1">What Went Well</p>
-            <p className="text-slate-600 bg-slate-50 rounded p-3 text-sm">{appraisal.whatWentWell || '—'}</p>
+            <p className="text-slate-600 bg-violet-50/50 rounded p-3 text-sm">{appraisal.whatWentWell || '—'}</p>
           </div>
           <div>
             <p className="text-sm font-medium text-slate-700 mb-1">What To Improve</p>
-            <p className="text-slate-600 bg-slate-50 rounded p-3 text-sm">{appraisal.whatToImprove || '—'}</p>
+            <p className="text-slate-600 bg-violet-50/50 rounded p-3 text-sm">{appraisal.whatToImprove || '—'}</p>
           </div>
           <div>
             <p className="text-sm font-medium text-slate-700 mb-1">Achievements</p>
-            <p className="text-slate-600 bg-slate-50 rounded p-3 text-sm">{appraisal.achievements || '—'}</p>
+            <p className="text-slate-600 bg-violet-50/50 rounded p-3 text-sm">{appraisal.achievements || '—'}</p>
           </div>
           <div>
             <p className="text-sm font-medium text-slate-700 mb-1">Self Rating</p>
@@ -158,12 +158,12 @@ export function AppraisalReviewPage() {
           <CardHeader><CardTitle>Goals</CardTitle></CardHeader>
           <CardContent className="space-y-3">
             {goals.map(g => (
-              <div key={g.id} className="border border-slate-200 rounded-lg p-4">
+              <div key={g.id} className="border border-violet-100 rounded-lg p-4">
                 <div className="flex items-start justify-between gap-2">
                   <div>
-                    <p className="font-medium text-slate-900">{g.title}</p>
-                    <p className="text-sm text-slate-500 mt-0.5">{g.description}</p>
-                    <p className="text-xs text-slate-400 mt-1">Due: {format(new Date(g.dueDate), 'MMM d, yyyy')}</p>
+                    <p className="font-medium text-violet-950">{g.title}</p>
+                    <p className="text-sm text-violet-700/80 mt-0.5">{g.description}</p>
+                    <p className="text-xs text-violet-600/70 mt-1">Due: {format(new Date(g.dueDate), 'MMM d, yyyy')}</p>
                   </div>
                   <GoalStatusBadge status={g.status} />
                 </div>
@@ -232,7 +232,7 @@ export function AppraisalReviewPage() {
                 <Send size={16} />{submit.isPending ? 'Submitting...' : 'Submit to HR'}
               </Button>
             </div>
-            <p className="text-xs text-slate-400 text-center">
+            <p className="text-xs text-violet-600/70 text-center">
               Save Draft keeps your review editable. Submit sends it to HR for approval.
             </p>
           </CardContent>
@@ -245,15 +245,15 @@ export function AppraisalReviewPage() {
           <CardContent className="space-y-4">
             <div>
               <p className="text-sm font-medium text-slate-700 mb-1">Strengths</p>
-              <p className="text-slate-600 bg-slate-50 rounded p-3 text-sm">{appraisal.managerStrengths || '—'}</p>
+              <p className="text-slate-600 bg-violet-50/50 rounded p-3 text-sm">{appraisal.managerStrengths || '—'}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-slate-700 mb-1">Areas for Improvement</p>
-              <p className="text-slate-600 bg-slate-50 rounded p-3 text-sm">{appraisal.managerImprovements || '—'}</p>
+              <p className="text-slate-600 bg-violet-50/50 rounded p-3 text-sm">{appraisal.managerImprovements || '—'}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-slate-700 mb-1">Overall Comments</p>
-              <p className="text-slate-600 bg-slate-50 rounded p-3 text-sm">{appraisal.managerComments || '—'}</p>
+              <p className="text-slate-600 bg-violet-50/50 rounded p-3 text-sm">{appraisal.managerComments || '—'}</p>
             </div>
             <div>
               <p className="text-sm font-medium text-slate-700 mb-1">Manager Rating</p>

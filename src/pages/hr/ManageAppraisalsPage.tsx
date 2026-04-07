@@ -120,23 +120,23 @@ export function ManageAppraisalsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 tracking-tight">Manage Appraisals</h1>
-        <p className="text-sm text-zinc-500 mt-1">View and manage all appraisal cycles</p>
+        <h1 className="text-2xl font-semibold text-violet-950 tracking-tight">Manage Appraisals</h1>
+        <p className="text-sm text-violet-700/80 mt-1">View and manage all appraisal cycles</p>
       </div>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1 max-w-sm">
-          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400" />
+          <Search size={15} className="absolute left-3 top-1/2 -translate-y-1/2 text-violet-600/70" />
           <input
-            className="w-full h-9 rounded-md border border-zinc-200 bg-white pl-9 pr-3 text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-zinc-900 focus:border-transparent"
+            className="w-full h-9 rounded-md border border-violet-100 bg-white pl-9 pr-3 text-sm text-violet-950 placeholder:text-violet-600/70 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:border-transparent"
             placeholder="Search employee, manager, cycle..."
             value={search}
             onChange={e => setSearch(e.target.value)}
           />
         </div>
         <select
-          className="h-9 rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 cursor-pointer"
+          className="h-9 rounded-md border border-violet-100 bg-white px-3 text-sm text-violet-950 focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer"
           value={statusFilter}
           onChange={e => setStatusFilter(e.target.value as AppraisalStatus | 'ALL')}
         >
@@ -145,7 +145,7 @@ export function ManageAppraisalsPage() {
           ))}
         </select>
         <select
-          className="h-9 rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 cursor-pointer"
+          className="h-9 rounded-md border border-violet-100 bg-white px-3 text-sm text-violet-950 focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer"
           value={deptFilter}
           onChange={e => setDeptFilter(e.target.value)}
         >
@@ -155,7 +155,7 @@ export function ManageAppraisalsPage() {
           ))}
         </select>
         <select
-          className="h-9 rounded-md border border-zinc-200 bg-white px-3 text-sm text-zinc-900 focus:outline-none focus:ring-2 focus:ring-zinc-900 cursor-pointer"
+          className="h-9 rounded-md border border-violet-100 bg-white px-3 text-sm text-violet-950 focus:outline-none focus:ring-2 focus:ring-slate-900 cursor-pointer"
           value={cycleFilter}
           onChange={e => setCycleFilter(e.target.value)}
         >
@@ -171,10 +171,10 @@ export function ManageAppraisalsPage() {
         )}
       </div>
 
-      {loading && <div className="text-center py-12 text-zinc-400 text-sm">Loading appraisals...</div>}
+      {loading && <div className="text-center py-12 text-violet-600/70 text-sm">Loading appraisals...</div>}
 
       {!loading && grouped.length === 0 && (
-        <div className="text-center py-16 text-zinc-400">
+        <div className="text-center py-16 text-violet-600/70">
           <p className="text-sm font-medium">No appraisals found</p>
           <p className="text-xs mt-1">{search || statusFilter !== 'ALL' ? 'Try adjusting your filters' : 'Create an appraisal to get started'}</p>
         </div>
@@ -191,23 +191,23 @@ export function ManageAppraisalsPage() {
             <Card key={cycleName}>
               {/* Cycle header — clickable to expand/collapse */}
               <button
-                className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-zinc-50 transition-colors rounded-t-xl"
+                className="w-full text-left px-6 py-4 flex items-center justify-between hover:bg-violet-50/50 transition-colors rounded-t-xl"
                 onClick={() => toggleCycle(cycleName)}
               >
                 <div className="flex items-center gap-4 flex-wrap">
                   <div>
-                    <p className="font-semibold text-zinc-900">{cycleName}</p>
-                    <p className="text-xs text-zinc-400 mt-0.5">
+                    <p className="font-semibold text-violet-950">{cycleName}</p>
+                    <p className="text-xs text-violet-600/70 mt-0.5">
                       {format(new Date(sample.cycleStartDate), 'MMM d, yyyy')} — {format(new Date(sample.cycleEndDate), 'MMM d, yyyy')}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
-                    <span className="text-xs text-zinc-500">{stats.total} appraisals</span>
-                    <span className="text-zinc-300">·</span>
+                    <span className="text-xs text-violet-700/80">{stats.total} appraisals</span>
+                    <span className="text-slate-300">·</span>
                     <span className="text-xs text-emerald-600 font-medium">{stats.pct}% complete</span>
                     {stats.needsApproval > 0 && (
                       <>
-                        <span className="text-zinc-300">·</span>
+                        <span className="text-slate-300">·</span>
                         <Badge variant="warning">{stats.needsApproval} need approval</Badge>
                       </>
                     )}
@@ -216,35 +216,35 @@ export function ManageAppraisalsPage() {
                 <div className="flex items-center gap-3 shrink-0">
                   {/* Mini progress bar */}
                   <div className="hidden sm:flex items-center gap-2">
-                    <div className="w-24 bg-zinc-100 rounded-full h-1.5 overflow-hidden">
-                      <div className="bg-zinc-900 h-1.5 rounded-full" style={{ width: `${stats.pct}%` }} />
+                    <div className="w-24 bg-slate-100 rounded-full h-1.5 overflow-hidden">
+                      <div className="bg-violet-600 h-1.5 rounded-full" style={{ width: `${stats.pct}%` }} />
                     </div>
-                    <span className="text-xs text-zinc-400">{stats.done}/{stats.total}</span>
+                    <span className="text-xs text-violet-600/70">{stats.done}/{stats.total}</span>
                   </div>
-                  {isExpanded ? <ChevronDown size={16} className="text-zinc-400" /> : <ChevronRight size={16} className="text-zinc-400" />}
+                  {isExpanded ? <ChevronDown size={16} className="text-violet-600/70" /> : <ChevronRight size={16} className="text-violet-600/70" />}
                 </div>
               </button>
 
               {/* Appraisals table */}
               {isExpanded && (
-                <div className="border-t border-zinc-100">
+                <div className="border-t border-slate-100">
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-zinc-100 bg-zinc-50/50">
+                        <tr className="border-b border-slate-100 bg-violet-50/50/50">
                           {['Employee', 'Department', 'Manager', 'Status', 'Submitted', 'Actions'].map(h => (
-                            <th key={h} className="text-left py-2.5 px-4 text-xs font-medium text-zinc-500 uppercase tracking-wide">{h}</th>
+                            <th key={h} className="text-left py-2.5 px-4 text-xs font-medium text-violet-700/80 uppercase tracking-wide">{h}</th>
                           ))}
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-zinc-50">
+                      <tbody className="divide-y divide-slate-50">
                         {appraisals.map(a => (
-                          <tr key={a.id} className="hover:bg-zinc-50 transition-colors">
-                            <td className="py-3 px-4 font-medium text-zinc-900">{a.employeeName}</td>
-                            <td className="py-3 px-4 text-zinc-500 text-xs">{a.employeeDepartment || '—'}</td>
-                            <td className="py-3 px-4 text-zinc-500 text-xs">{a.managerName}</td>
+                          <tr key={a.id} className="hover:bg-violet-50/50 transition-colors">
+                            <td className="py-3 px-4 font-medium text-violet-950">{a.employeeName}</td>
+                            <td className="py-3 px-4 text-violet-700/80 text-xs">{a.employeeDepartment || '—'}</td>
+                            <td className="py-3 px-4 text-violet-700/80 text-xs">{a.managerName}</td>
                             <td className="py-3 px-4"><StatusBadge status={a.appraisalStatus} /></td>
-                            <td className="py-3 px-4 text-zinc-400 text-xs">
+                            <td className="py-3 px-4 text-violet-600/70 text-xs">
                               {a.submittedAt ? format(new Date(a.submittedAt), 'MMM d, yyyy') : '—'}
                             </td>
                             <td className="py-3 px-4">

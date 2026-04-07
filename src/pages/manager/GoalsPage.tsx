@@ -65,8 +65,8 @@ export function ManagerGoalsPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Team Goals</h1>
-          <p className="text-slate-500 text-sm mt-1">Manage goals for your team members</p>
+          <h1 className="text-2xl font-bold text-violet-950">Team Goals</h1>
+          <p className="text-violet-700/80 text-sm mt-1">Manage goals for your team members</p>
         </div>
         <Button onClick={openAdd} className="gap-2"><Plus size={16} />Add Goal</Button>
       </div>
@@ -74,26 +74,26 @@ export function ManagerGoalsPage() {
       <Card>
         <CardContent className="pt-6">
           {allGoals.length === 0 ? (
-            <p className="text-center text-slate-400 py-8">No goals yet. Add a goal for a team member.</p>
+            <p className="text-center text-violet-600/70 py-8">No goals yet. Add a goal for a team member.</p>
           ) : (
             <div className="overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
-                  <tr className="border-b border-slate-200">
+                  <tr className="border-b border-violet-100">
                     {['Employee / Cycle', 'Goal', 'Due Date', 'Status', 'Actions'].map(h => (
-                      <th key={h} className="text-left py-3 px-4 text-slate-500 font-medium">{h}</th>
+                      <th key={h} className="text-left py-3 px-4 text-violet-700/80 font-medium">{h}</th>
                     ))}
                   </tr>
                 </thead>
                 <tbody>
                   {allGoals.map(g => (
-                    <tr key={g.id} className="border-b border-slate-100 hover:bg-slate-50">
+                    <tr key={g.id} className="border-b border-slate-100 hover:bg-violet-50/50">
                       <td className="py-3 px-4 text-slate-600 text-xs">{getAppraisalLabel(g.appraisalId)}</td>
                       <td className="py-3 px-4">
-                        <p className="font-medium text-slate-900">{g.title}</p>
-                        <p className="text-xs text-slate-400 truncate max-w-[200px]">{g.description}</p>
+                        <p className="font-medium text-violet-950">{g.title}</p>
+                        <p className="text-xs text-violet-600/70 truncate max-w-[200px]">{g.description}</p>
                       </td>
-                      <td className={`py-3 px-4 text-sm ${isPast(new Date(g.dueDate)) && g.status !== 'COMPLETED' ? 'text-red-600 font-medium' : 'text-slate-500'}`}>
+                      <td className={`py-3 px-4 text-sm ${isPast(new Date(g.dueDate)) && g.status !== 'COMPLETED' ? 'text-red-600 font-medium' : 'text-violet-700/80'}`}>
                         {format(new Date(g.dueDate), 'MMM d, yyyy')}
                       </td>
                       <td className="py-3 px-4">

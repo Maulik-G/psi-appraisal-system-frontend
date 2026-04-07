@@ -67,25 +67,25 @@ export function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-zinc-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-violet-50/50 flex items-center justify-center p-4">
       <div className="w-full max-w-sm">
         {/* Logo */}
         <div className="text-center mb-8">
           <div className="w-20 h-20 rounded-xl flex items-center justify-center mx-auto mb-4">
             <img src="/favicon.png" alt="Logo" className="w-20 h-20" />
           </div>
-          <h1 className="text-xl font-semibold text-zinc-900 tracking-tight">Appraisal System</h1>
-          <p className="text-sm text-zinc-500 mt-1">Performance Management System</p>
+          <h1 className="text-xl font-semibold text-violet-950 tracking-tight">Appraisal System</h1>
+          <p className="text-sm text-violet-700/80 mt-1">Performance Management System</p>
         </div>
 
         {/* Form */}
-        <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-6">
-          <h2 className="text-sm font-semibold text-zinc-900 mb-1">Sign in</h2>
-          <p className="text-xs text-zinc-500 mb-5">Enter your credentials to continue</p>
+        <div className="bg-white rounded-xl border border-violet-100 shadow-sm p-6">
+          <h2 className="text-sm font-semibold text-violet-950 mb-1">Sign in</h2>
+          <p className="text-xs text-violet-700/80 mb-5">Enter your credentials to continue</p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-zinc-700 mb-1.5">Email address</label>
+              <label className="block text-xs font-medium text-slate-700 mb-1.5">Email address</label>
               <Input
                 type="email"
                 placeholder="name@company.com"
@@ -96,7 +96,7 @@ export function LoginPage() {
               />
             </div>
             <div>
-              <label className="block text-xs font-medium text-zinc-700 mb-1.5">Password</label>
+              <label className="block text-xs font-medium text-slate-700 mb-1.5">Password</label>
               <Input
                 type="password"
                 placeholder="••••••••"

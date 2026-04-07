@@ -55,17 +55,17 @@ export function ManagerDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-semibold text-zinc-900 tracking-tight">
+        <h1 className="text-2xl font-semibold text-violet-950 tracking-tight">
           Welcome, {user?.fullName.split(' ')[0]}
         </h1>
-        <p className="text-zinc-500 text-sm mt-1">{user?.jobTitle}</p>
+        <p className="text-violet-700/80 text-sm mt-1">{user?.jobTitle}</p>
       </div>
 
       {/* Stats */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3">
         {[
-          { label: 'Team Size', value: team.length, icon: Users, color: 'text-zinc-600' },
-          { label: 'Active Reviews', value: active, icon: ClipboardList, color: 'text-zinc-600' },
+          { label: 'Team Size', value: team.length, icon: Users, color: 'text-slate-600' },
+          { label: 'Active Reviews', value: active, icon: ClipboardList, color: 'text-slate-600' },
           { label: 'Awaiting My Review', value: awaitingReview, icon: Clock, color: 'text-amber-600' },
           { label: 'Completed', value: completed, icon: CheckCircle, color: 'text-emerald-600' },
         ].map(({ label, value, icon: Icon, color }) => (
@@ -73,8 +73,8 @@ export function ManagerDashboard() {
             <CardContent className="pt-5 pb-5">
               <div className="flex items-start justify-between">
                 <div>
-                  <p className="text-xs text-zinc-500">{label}</p>
-                  <p className="text-2xl font-semibold text-zinc-900 mt-1 tracking-tight">{value}</p>
+                  <p className="text-xs text-violet-700/80">{label}</p>
+                  <p className="text-2xl font-semibold text-violet-950 mt-1 tracking-tight">{value}</p>
                 </div>
                 <Icon size={18} className={color} />
               </div>
@@ -87,14 +87,14 @@ export function ManagerDashboard() {
       {user?.managerId && (
         <div className="space-y-3">
           <div className="flex items-center gap-2">
-            <User size={16} className="text-zinc-400" />
-            <h2 className="text-sm font-semibold text-zinc-700 uppercase tracking-wider">My Appraisals</h2>
-            <span className="text-xs text-zinc-400">— as an employee reporting to your manager</span>
+            <User size={16} className="text-violet-600/70" />
+            <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">My Appraisals</h2>
+            <span className="text-xs text-violet-600/70">— as an employee reporting to your manager</span>
           </div>
 
           {myAppraisals.length === 0 ? (
             <Card>
-              <CardContent className="py-8 text-center text-zinc-400 text-sm">
+              <CardContent className="py-8 text-center text-violet-600/70 text-sm">
                 No appraisals assigned to you yet.
               </CardContent>
             </Card>
@@ -105,8 +105,8 @@ export function ManagerDashboard() {
                   <CardContent className="py-4">
                     <div className="flex items-center justify-between gap-4 flex-wrap">
                       <div>
-                        <p className="font-medium text-zinc-900">{a.cycleName}</p>
-                        <p className="text-xs text-zinc-500 mt-0.5">
+                        <p className="font-medium text-violet-950">{a.cycleName}</p>
+                        <p className="text-xs text-violet-700/80 mt-0.5">
                           Reviewed by: {a.managerName} ·{' '}
                           {format(new Date(a.cycleStartDate), 'MMM d')} — {format(new Date(a.cycleEndDate), 'MMM d, yyyy')}
                         </p>
@@ -139,30 +139,30 @@ export function ManagerDashboard() {
       {/* Team Appraisals — reviews to do */}
       <div className="space-y-3">
         <div className="flex items-center gap-2">
-          <Users size={16} className="text-zinc-400" />
-          <h2 className="text-sm font-semibold text-zinc-700 uppercase tracking-wider">Team Appraisals</h2>
-          <span className="text-xs text-zinc-400">— reviews you need to complete</span>
+          <Users size={16} className="text-violet-600/70" />
+          <h2 className="text-sm font-semibold text-slate-700 uppercase tracking-wider">Team Appraisals</h2>
+          <span className="text-xs text-violet-600/70">— reviews you need to complete</span>
         </div>
 
         <Card>
           <CardContent className="pt-0">
             {teamAppraisals.length === 0 ? (
-              <p className="text-center text-zinc-400 py-8 text-sm">No appraisals found for your team.</p>
+              <p className="text-center text-violet-600/70 py-8 text-sm">No appraisals found for your team.</p>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full text-sm">
                   <thead>
-                    <tr className="border-b border-zinc-100">
+                    <tr className="border-b border-slate-100">
                       {['Employee', 'Cycle', 'Status', 'Self Rating', 'My Rating', 'Actions'].map(h => (
-                        <th key={h} className="text-left py-2.5 px-3 text-xs font-medium text-zinc-500 uppercase tracking-wide">{h}</th>
+                        <th key={h} className="text-left py-2.5 px-3 text-xs font-medium text-violet-700/80 uppercase tracking-wide">{h}</th>
                       ))}
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-zinc-50">
+                  <tbody className="divide-y divide-slate-50">
                     {teamAppraisals.map(a => (
-                      <tr key={a.id} className="hover:bg-zinc-50 transition-colors">
-                        <td className="py-3 px-3 font-medium text-zinc-900">{a.employeeName}</td>
-                        <td className="py-3 px-3 text-zinc-600 text-xs">{a.cycleName}</td>
+                      <tr key={a.id} className="hover:bg-violet-50/50 transition-colors">
+                        <td className="py-3 px-3 font-medium text-violet-950">{a.employeeName}</td>
+                        <td className="py-3 px-3 text-slate-600 text-xs">{a.cycleName}</td>
                         <td className="py-3 px-3"><StatusBadge status={a.appraisalStatus} /></td>
                         <td className="py-3 px-3"><RatingStars value={a.selfRating || 0} readonly /></td>
                         <td className="py-3 px-3"><RatingStars value={a.managerRating || 0} readonly /></td>

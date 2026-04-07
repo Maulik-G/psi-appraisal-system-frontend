@@ -31,14 +31,14 @@ export function AppraisalsPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">My Appraisals</h1>
-        <p className="text-slate-500 text-sm mt-1">All your performance appraisal cycles</p>
+        <h1 className="text-2xl font-bold text-violet-950">My Appraisals</h1>
+        <p className="text-violet-700/80 text-sm mt-1">All your performance appraisal cycles</p>
       </div>
 
       {isLoading ? (
-        <p className="text-slate-400">Loading...</p>
+        <p className="text-violet-600/70">Loading...</p>
       ) : appraisals.length === 0 ? (
-        <div className="text-center py-16 text-slate-400">
+        <div className="text-center py-16 text-violet-600/70">
           <p className="text-lg font-medium">No appraisals yet</p>
           <p className="text-sm mt-1">Your HR team will create an appraisal for you.</p>
         </div>
@@ -50,10 +50,10 @@ export function AppraisalsPage() {
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 flex-wrap">
-                      <h3 className="font-semibold text-slate-900 text-lg">{a.cycleName}</h3>
+                      <h3 className="font-semibold text-violet-950 text-lg">{a.cycleName}</h3>
                       <StatusBadge status={a.appraisalStatus} />
                     </div>
-                    <div className="mt-2 grid grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-500">
+                    <div className="mt-2 grid grid-cols-2 gap-x-8 gap-y-1 text-sm text-violet-700/80">
                       <span>Manager: <span className="text-slate-700">{a.managerName}</span></span>
                       <span>Department: <span className="text-slate-700">{a.employeeDepartment || '—'}</span></span>
                       <span>Start: <span className="text-slate-700">{format(new Date(a.cycleStartDate), 'MMM d, yyyy')}</span></span>

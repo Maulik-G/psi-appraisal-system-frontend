@@ -54,18 +54,18 @@ export function FeedbackPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Feedback</h1>
-        <p className="text-slate-500 text-sm mt-1">View received feedback and submit your own</p>
+        <h1 className="text-2xl font-bold text-violet-950">Feedback</h1>
+        <p className="text-violet-700/80 text-sm mt-1">View received feedback and submit your own</p>
       </div>
 
       {/* Tabs */}
-      <div className="flex border-b border-slate-200">
+      <div className="flex border-b border-violet-100">
         {(['received', 'give'] as const).map(t => (
           <button
             key={t}
             onClick={() => setTab(t)}
             className={`px-4 py-2 text-sm font-medium border-b-2 transition-colors ${
-              tab === t ? 'border-blue-600 text-blue-600' : 'border-transparent text-slate-500 hover:text-slate-700'
+              tab === t ? 'border-blue-600 text-blue-600' : 'border-transparent text-violet-700/80 hover:text-slate-700'
             }`}
           >
             {t === 'received' ? 'Received Feedback' : 'Give Feedback'}
@@ -76,7 +76,7 @@ export function FeedbackPage() {
       {tab === 'received' && (
         <div>
           {feedbacks.length === 0 ? (
-            <div className="text-center py-16 text-slate-400">
+            <div className="text-center py-16 text-violet-600/70">
               <p className="text-lg font-medium">No feedback yet</p>
               <p className="text-sm mt-1">Feedback from your manager and peers will appear here.</p>
             </div>
@@ -86,14 +86,14 @@ export function FeedbackPage() {
                 <Card key={f.id}>
                   <CardContent className="pt-4">
                     <div className="flex items-center justify-between mb-2">
-                      <p className="font-medium text-slate-900">{f.reviewerName}</p>
+                      <p className="font-medium text-violet-950">{f.reviewerName}</p>
                       <div className="flex items-center gap-2">
                         <span className={`text-xs px-2 py-1 rounded-full font-medium ${feedbackTypeColor[f.feedbackType]}`}>{f.feedbackType}</span>
                         <RatingStars value={f.rating} readonly />
                       </div>
                     </div>
                     <p className="text-sm text-slate-600">{f.comments}</p>
-                    <p className="text-xs text-slate-400 mt-2">{format(new Date(f.createdAt), 'MMM d, yyyy')}</p>
+                    <p className="text-xs text-violet-600/70 mt-2">{format(new Date(f.createdAt), 'MMM d, yyyy')}</p>
                   </CardContent>
                 </Card>
               ))}

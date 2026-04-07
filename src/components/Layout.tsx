@@ -5,14 +5,22 @@ import { NotificationPanel } from './NotificationPanel'
 import { useAuth } from '../context/AuthContext'
 import { Menu } from 'lucide-react'
 
+const roleLabel: Record<string, string> = {
+  HR: 'Human Resources',
+  MANAGER: 'Manager',
+  EMPLOYEE: 'Employee',
+}
+
 export function Layout() {
   const { user } = useAuth()
   const [mobileOpen, setMobileOpen] = useState(false)
 
   if (!user) return <Navigate to="/login" replace />
 
+  const initials = user.fullName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
+
   return (
-    <div className="flex h-screen bg-zinc-50 overflow-hidden">
+    <div className="flex h-screen bg-violet-50/50 overflow-hidden">
       {/* Desktop sidebar */}
       <div className="hidden lg:flex">
         <Sidebar />
@@ -21,7 +29,7 @@ export function Layout() {
       {/* Mobile sidebar overlay */}
       {mobileOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
+          <div className="absolute inset-0 bg-violet-950/60 backdrop-blur-sm" onClick={() => setMobileOpen(false)} />
           <div className="relative w-72 h-full">
             <Sidebar onClose={() => setMobileOpen(false)} />
           </div>
@@ -31,17 +39,25 @@ export function Layout() {
       {/* Main content */}
       <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
         {/* Header */}
-        <header className="bg-white border-b border-zinc-200 px-4 lg:px-6 h-14 flex items-center justify-between shrink-0">
+        <header className="bg-white/80 backdrop-blur-md border-b border-violet-100 px-4 lg:px-6 h-16 flex items-center justify-between shrink-0 shadow-sm shadow-violet-900/5 z-10">
           <button
-            className="lg:hidden p-2 rounded-md text-zinc-500 hover:bg-zinc-100 transition-colors"
+            className="lg:hidden p-2 rounded-md text-violet-700/80 hover:bg-violet-50 transition-colors"
             onClick={() => setMobileOpen(true)}
           >
             <Menu size={18} />
           </button>
           <div className="flex-1 lg:flex-none" />
-          <div className="flex items-center gap-3">
-            <span className="hidden sm:block text-sm text-zinc-500">{user.fullName}</span>
+          <div className="flex items-center gap-4">
             <NotificationPanel />
+            <div className="flex items-center gap-3 pl-4 border-l border-violet-200">
+               <div className="text-right hidden sm:block">
+                 <p className="text-sm font-semibold text-violet-950 leading-tight">{user.fullName}</p>
+                 <p className="text-xs text-violet-600 mt-0.5">{roleLabel[user.role]}</p>
+               </div>
+               <div className="w-9 h-9 rounded-full bg-violet-600 flex items-center justify-center text-white text-sm font-bold shadow-sm">
+                 {initials}
+               </div>
+            </div>
           </div>
         </header>
 

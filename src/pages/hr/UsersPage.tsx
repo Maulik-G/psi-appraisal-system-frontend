@@ -58,8 +58,8 @@ export function UsersPage() {
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Users</h1>
-          <p className="text-slate-500 text-sm mt-1">Manage all system users</p>
+          <h1 className="text-2xl font-bold text-violet-950">Users</h1>
+          <p className="text-violet-700/80 text-sm mt-1">Manage all system users</p>
         </div>
         <Button onClick={openCreate}><Plus size={16} /> Add User</Button>
       </div>
@@ -69,26 +69,26 @@ export function UsersPage() {
           <div className="overflow-x-auto">
             <table className="w-full text-sm">
               <thead>
-                <tr className="border-b border-slate-200">
+                <tr className="border-b border-violet-100">
                   {['Name', 'Email', 'Role', 'Job Title', 'Department', 'Manager', 'Status', 'Actions'].map(h => (
-                    <th key={h} className="text-left py-3 px-4 text-slate-500 font-medium">{h}</th>
+                    <th key={h} className="text-left py-3 px-4 text-violet-700/80 font-medium">{h}</th>
                   ))}
                 </tr>
               </thead>
               <tbody>
                 {users.map(u => (
-                  <tr key={u.id} className="border-b border-slate-100 hover:bg-slate-50">
+                  <tr key={u.id} className="border-b border-slate-100 hover:bg-violet-50/50">
                     <td className="py-3 px-4">
                       <div className="flex items-center gap-2">
                         <UserAvatar name={u.fullName} role={u.role} size="sm" />
-                        <span className="font-medium text-slate-900">{u.fullName}</span>
+                        <span className="font-medium text-violet-950">{u.fullName}</span>
                       </div>
                     </td>
-                    <td className="py-3 px-4 text-slate-500">{u.email}</td>
+                    <td className="py-3 px-4 text-violet-700/80">{u.email}</td>
                     <td className="py-3 px-4"><Badge variant={roleBadge[u.role]}>{u.role}</Badge></td>
                     <td className="py-3 px-4 text-slate-600">{u.jobTitle}</td>
-                    <td className="py-3 px-4 text-slate-500">{u.departmentName || '—'}</td>
-                    <td className="py-3 px-4 text-slate-500">{u.managerName || '—'}</td>
+                    <td className="py-3 px-4 text-violet-700/80">{u.departmentName || '—'}</td>
+                    <td className="py-3 px-4 text-violet-700/80">{u.managerName || '—'}</td>
                     <td className="py-3 px-4">
                       <Badge variant={u.isActive ? 'success' : 'secondary'}>{u.isActive ? 'Active' : 'Inactive'}</Badge>
                     </td>
