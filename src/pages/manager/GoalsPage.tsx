@@ -10,7 +10,7 @@ import { Select } from '../../components/ui/select'
 import { Dialog } from '../../components/ui/dialog'
 import { GoalStatusBadge } from '../../components/StatusBadge'
 import { format, isPast } from 'date-fns'
-import { Plus, Pencil, Trash2 } from 'lucide-react'
+import { Plus, Pencil, Trash2, AlertCircle } from 'lucide-react'
 import { toast } from 'sonner'
 import { useAuth } from '../../context/AuthContext'
 import type { Goal } from '../../types'
@@ -107,8 +107,24 @@ export function ManagerGoalsPage() {
                       </td>
                       <td className="py-3 px-4">
                         <div className="flex gap-2">
-                          <Button size="sm" variant="outline" onClick={() => openEdit(g)}><Pencil size={14} /></Button>
-                          <Button size="sm" variant="outline" className="text-red-600 hover:text-red-700" onClick={() => remove.mutate(g.id)}><Trash2 size={14} /></Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            onClick={() => openEdit(g)}
+                            disabled={appraisals.find(a => a.id === g.appraisalId)?.appraisalStatus !== 'DRAFT'}
+                            title={appraisals.find(a => a.id === g.appraisalId)?.appraisalStatus !== 'DRAFT' ? 'Goals are locked' : ''}
+                          >
+                            <Pencil size={14} />
+                          </Button>
+                          <Button 
+                            size="sm" 
+                            variant="outline" 
+                            className="text-red-600 hover:text-red-700" 
+                            onClick={() => remove.mutate(g.id)}
+                            disabled={appraisals.find(a => a.id === g.appraisalId)?.appraisalStatus !== 'DRAFT'}
+                          >
+                            <Trash2 size={14} />
+                          </Button>
                         </div>
                       </td>
                     </tr>
@@ -125,9 +141,14 @@ export function ManagerGoalsPage() {
             {!editing && (
               <div>
                 <label className="block text-sm font-medium text-slate-700 mb-1">Appraisal *</label>
+                <p className="text-[10px] text-amber-600 font-bold mb-2 uppercase tracking-widest flex items-center gap-1">
+                   <AlertCircle size={10} /> Showing only active Goal Setting cycles
+                </p>
                 <Select value={form.appraisalId} onChange={e => setForm(f => ({ ...f, appraisalId: e.target.value }))} required>
                   <option value="">Select appraisal</option>
-                  {appraisals.map(a => <option key={a.id} value={a.id}>{a.employeeName} — {a.cycleName}</option>)}
+                  {appraisals.filter(a => a.appraisalStatus === 'DRAFT').map(a => (
+                    <option key={a.id} value={a.id}>{a.employeeName} — {a.cycleName}</option>
+                  ))}
                 </Select>
               </div>
             )}

@@ -42,7 +42,7 @@ export function EmployeeGoalsPage() {
     <div className="space-y-6">
       <div>
         <h1 className="text-2xl font-semibold text-violet-950 tracking-tight">My Goals</h1>
-        <p className="text-violet-700/80 text-sm mt-1">{goals.length} goal{goals.length !== 1 ? 's' : ''} assigned</p>
+        <p className="text-violet-700/80 text-sm mt-1">{goals.length} target{goals.length !== 1 ? 's' : ''} assigned by manager</p>
       </div>
 
       {isLoading ? (

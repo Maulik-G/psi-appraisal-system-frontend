@@ -20,7 +20,7 @@ export function Layout() {
   const initials = user.fullName.split(' ').map(n => n[0]).join('').slice(0, 2).toUpperCase()
 
   return (
-    <div className="flex h-screen bg-violet-50/50 overflow-hidden">
+    <div className={`flex h-screen overflow-hidden theme-${(activeRole || user.role).toLowerCase()}`}>
       {/* Desktop sidebar */}
       <div className="hidden lg:flex">
         <Sidebar />

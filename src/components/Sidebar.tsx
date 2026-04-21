@@ -41,9 +41,14 @@ export function Sidebar({ onClose }: SidebarProps) {
   const links = activeRole === 'HR' ? hrLinks : activeRole === 'MANAGER' ? managerLinks : employeeLinks
 
   return (
-    <aside className="w-64 bg-gradient-to-b from-violet-950 to-violet-900 border-r border-violet-800 flex flex-col h-screen shadow-xl shadow-violet-900/20">
+    <aside className="w-64 bg-slate-900 border-r border-violet-800/20 flex flex-col h-screen shadow-xl relative overflow-hidden">
+      {/* Dynamic background for sidebar */}
+      <div className="absolute inset-0 bg-gradient-to-b from-violet-950 to-violet-900 opacity-100 z-0" />
+      {activeRole === 'MANAGER' && (
+        <div className="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 blur-3xl -mr-16 -mt-16 pointer-events-none" />
+      )}
       {/* Logo */}
-      <div className="px-5 h-14 flex items-center justify-between border-b border-violet-800/50 shrink-0">
+      <div className="relative z-10 px-5 h-14 flex items-center justify-between border-b border-violet-800/50 shrink-0">
         <div className="flex items-center gap-2.5">
           <div className="w-12 h-12 rounded-lg flex items-center justify-center">
             <img src="/favicon.png" alt="Logo" className="w-8 h-8 opacity-90" />
@@ -59,7 +64,7 @@ export function Sidebar({ onClose }: SidebarProps) {
 
 
       {/* Nav */}
-      <nav className="flex-1 px-3 py-4 space-y-1 overflow-y-auto">
+      <nav className="relative z-10 flex-1 px-3 py-4 space-y-1 overflow-y-auto">
         <p className="text-xs font-semibold text-violet-500/80 uppercase tracking-wider px-3 mb-3">Navigation</p>
         {links.map(({ to, label, icon: Icon }) => (
           <NavLink
@@ -69,23 +74,23 @@ export function Sidebar({ onClose }: SidebarProps) {
             className={({ isActive }) => cn(
               'flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm transition-all duration-200',
               isActive
-                ? 'bg-violet-800/60 text-white font-medium border border-violet-700/50 shadow-sm'
-                : 'text-violet-200/70 hover:bg-violet-800/40 hover:text-violet-50'
+                ? 'bg-white/15 text-white font-medium border border-white/10 shadow-sm backdrop-blur-md'
+                : 'text-slate-300 hover:bg-white/10 hover:text-white'
             )}
           >
-            <Icon size={20} strokeWidth={1.5} className={cn("transition-colors", "opacity-80")} />
+            <Icon size={20} strokeWidth={1.5} className={cn("transition-colors", "opacity-70 group-hover:opacity-100")} />
             {label}
           </NavLink>
         ))}
       </nav>
 
       {/* Logout */}
-      <div className="px-3 py-4 border-t border-violet-800/50 bg-violet-950/30">
+      <div className="relative z-10 px-3 py-4 border-t border-white/10 bg-black/10">
         <button
           onClick={logout}
-          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-violet-300 hover:bg-violet-800/50 hover:text-white transition-all duration-200 w-full"
+          className="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm text-slate-300 hover:bg-white/10 hover:text-white transition-all duration-200 w-full"
         >
-          <DoorOpen size={20} strokeWidth={1.5} className="opacity-80" />
+          <DoorOpen size={20} strokeWidth={1.5} className="opacity-70" />
           Sign out
         </button>
       </div>

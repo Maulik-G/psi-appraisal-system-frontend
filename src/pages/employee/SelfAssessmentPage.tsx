@@ -66,13 +66,26 @@ export function SelfAssessmentPage() {
   if (isLoading) return <div className="text-violet-700/80 p-6">Loading...</div>
   if (!appraisal) return <div className="text-violet-700/80 p-6">Appraisal not found.</div>
 
-  const canEdit = appraisal.appraisalStatus === 'PENDING' || appraisal.appraisalStatus === 'EMPLOYEE_DRAFT'
+  if (appraisal.appraisalStatus === 'DRAFT') {
+    return (
+      <div className="max-w-xl mx-auto py-20 text-center space-y-4">
+        <div className="w-16 h-16 bg-amber-50 rounded-full flex items-center justify-center mx-auto">
+          <Clock size={32} className="text-amber-600" />
+        </div>
+        <h2 className="text-xl font-bold text-slate-800 tracking-tight">Goals Pending Approval</h2>
+        <p className="text-slate-500 text-sm max-w-sm mx-auto">
+          Your manager needs to approve your performance goals before you can start your self-assessment.
+        </p>
+        <Button variant="outline" onClick={() => navigate(-1)} className="mt-4">Go Back</Button>
+      </div>
+    )
+  }
+
+  const canEdit = appraisal.appraisalStatus === 'GOALS_APPROVED'
   if (!canEdit) {
     navigate(`${basePath}/${appraisalId}`)
     return null
   }
-
-  const isDraft = appraisal.appraisalStatus === 'EMPLOYEE_DRAFT'
 
   return (
     <div className="max-w-2xl space-y-6">
@@ -100,12 +113,9 @@ export function SelfAssessmentPage() {
             <p className="text-xs text-violet-700/80 uppercase tracking-wide">Status</p>
             <div className="mt-1"><StatusBadge status={appraisal.appraisalStatus} /></div>
           </div>
-          {isDraft && (
-            <div>
-              <p className="text-xs text-violet-700/80 uppercase tracking-wide">Note</p>
-              <p className="text-xs text-amber-600 font-medium mt-1">Draft saved — not yet submitted to manager</p>
-            </div>
-          )}
+          <div className="mt-1 flex items-center gap-2">
+            <p className="text-xs text-amber-600 font-medium">Self-assessment in progress</p>
+          </div>
         </CardContent>
       </Card>
 

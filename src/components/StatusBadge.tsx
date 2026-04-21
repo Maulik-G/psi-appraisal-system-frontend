@@ -3,13 +3,11 @@ import type { AppraisalStatus, GoalStatus } from '../types'
 
 export function StatusBadge({ status }: { status: AppraisalStatus }) {
   const map: Record<AppraisalStatus, { label: string; variant: 'secondary' | 'blue' | 'warning' | 'success' | 'purple' | 'outline' }> = {
-    PENDING:          { label: 'Pending',          variant: 'secondary' },
-    EMPLOYEE_DRAFT:   { label: 'Draft',            variant: 'warning'   },
-    SELF_SUBMITTED:   { label: 'Self Submitted',   variant: 'blue'      },
-    MANAGER_DRAFT:    { label: 'Review Draft',     variant: 'warning'   },
-    MANAGER_REVIEWED: { label: 'Under Review',     variant: 'outline'   },
-    APPROVED:         { label: 'Approved',         variant: 'success'   },
-    ACKNOWLEDGED:     { label: 'Acknowledged',     variant: 'purple'    },
+    DRAFT:            { label: 'Goal Setting',     variant: 'warning'   },
+    GOALS_APPROVED:   { label: 'Goals Locked',     variant: 'success'   },
+    SELF_SUBMITTED:   { label: 'Review Pending',   variant: 'blue'      },
+    MANAGER_REVIEWED: { label: 'In Calibration',   variant: 'outline'   },
+    FINALIZED:        { label: 'Finalized',        variant: 'purple'    },
   }
   const { label, variant } = map[status]
   return <Badge variant={variant}>{label}</Badge>

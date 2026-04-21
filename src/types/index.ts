@@ -1,13 +1,11 @@
 export type Role = 'HR' | 'MANAGER' | 'EMPLOYEE'
 
 export type AppraisalStatus =
-  | 'PENDING'
-  | 'EMPLOYEE_DRAFT'
+  | 'DRAFT'
+  | 'GOALS_APPROVED'
   | 'SELF_SUBMITTED'
-  | 'MANAGER_DRAFT'
   | 'MANAGER_REVIEWED'
-  | 'APPROVED'
-  | 'ACKNOWLEDGED'
+  | 'FINALIZED'
 
 export type CycleStatus = 'DRAFT' | 'ACTIVE' | 'CLOSED'
 export type GoalStatus = 'NOT_STARTED' | 'IN_PROGRESS' | 'COMPLETED' | 'CANCELLED'
@@ -19,6 +17,7 @@ export type NotificationType =
   | 'MANAGER_REVIEW_DONE'
   | 'APPRAISAL_APPROVED'
   | 'FEEDBACK_RECEIVED'
+  | 'STATUS_CHANGED'
   | 'GENERAL'
 
 export interface ApiResponse<T> {
@@ -111,13 +110,11 @@ export interface Notification {
 export interface CycleSummaryResponse {
   cycleName: string
   totalAppraisals: number
-  pending: number
-  employeeDraft: number
+  draft: number
+  goalsApproved: number
   selfSubmitted: number
-  managerDraft: number
   managerReviewed: number
-  approved: number
-  acknowledged: number
+  finalized: number
   completionPercentage: number
   averageManagerRating: number | null
 }

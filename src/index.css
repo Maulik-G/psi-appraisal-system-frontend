@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
+@theme {
+  /* Dynamic brand colors mapped to violet by default */
+  --color-violet-50:  var(--brand-50);
+  --color-violet-100: var(--brand-100);
+  --color-violet-200: var(--brand-200);
+  --color-violet-300: var(--brand-300);
+  --color-violet-400: var(--brand-400);
+  --color-violet-500: var(--brand-500);
+  --color-violet-600: var(--brand-600);
+  --color-violet-700: var(--brand-700);
+  --color-violet-800: var(--brand-800);
+  --color-violet-900: var(--brand-900);
+  --color-violet-950: var(--brand-950);
+
+  --color-accent-primary: var(--accent-primary);
+  --color-accent-secondary: var(--accent-secondary);
+}
+
 @layer base {
   :root {
-    --background: 260 20% 99%;
-    --foreground: 260 10% 12%;
-    --card: 0 0% 100%;
-    --card-foreground: 260 10% 12%;
-    --border: 260 15% 90%;
-    --input: 260 15% 90%;
-    --primary: 262 80% 50%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 260 25% 94%;
-    --secondary-foreground: 262 80% 50%;
-    --muted: 260 20% 94%;
-    --muted-foreground: 260 15% 45%;
-    --accent: 260 25% 94%;
-    --accent-foreground: 262 80% 50%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
-    --ring: 262 80% 50%;
-    --radius: 0.5rem;
+    /* Employee (Default) - Blue Palette (H=230) */
+    --brand-50:  oklch(0.97 0.01 230);
+    --brand-100: oklch(0.93 0.03 230);
+    --brand-200: oklch(0.87 0.06 230);
+    --brand-300: oklch(0.8 0.1 230);
+    --brand-400: oklch(0.7 0.14 230);
+    --brand-500: oklch(0.6 0.18 230);
+    --brand-600: oklch(0.5 0.2 230);
+    --brand-700: oklch(0.4 0.18 230);
+    --brand-800: oklch(0.3 0.14 230);
+    --brand-900: oklch(0.2 0.1 230);
+    --brand-950: oklch(0.1 0.06 230);
+
+    --accent-primary: oklch(0.6 0.18 230);
+    --accent-secondary: oklch(0.4 0.18 230);
+    --radius: 0.85rem;
   }
+}
+
+/* Global Theme Overrides */
+
+.theme-employee {
+  /* Blue is default, but we can explicitly set it if needed */
+}
+
+.theme-hr {
+  /* HR - Dark / Slate Palette (Neutral with hint of depth) */
+  --brand-50:  oklch(0.98 0.005 230);
+  --brand-100: oklch(0.94 0.01 230);
+  --brand-200: oklch(0.88 0.02 230);
+  --brand-300: oklch(0.8 0.03 230);
+  --brand-400: oklch(0.6 0.04 230);
+  --brand-500: oklch(0.45 0.05 230);
+  --brand-600: oklch(0.3 0.06 230);
+  --brand-700: oklch(0.2 0.05 230);
+  --brand-800: oklch(0.15 0.04 230);
+  --brand-900: oklch(0.1 0.03 230);
+  --brand-950: oklch(0.05 0.02 230);
+
+  --accent-primary: oklch(0.5 0.05 230);
+}
+
+.theme-manager {
+  /* Manager - Emerald / Teal Palette (H=165) */
+  --brand-50:  oklch(0.98 0.01 165);
+  --brand-100: oklch(0.95 0.03 165);
+  --brand-200: oklch(0.9 0.06 165);
+  --brand-300: oklch(0.8 0.1 165);
+  --brand-400: oklch(0.7 0.14 165);
+  --brand-500: oklch(0.6 0.18 165);
+  --brand-600: oklch(0.5 0.2 165);
+  --brand-700: oklch(0.4 0.18 165);
+  --brand-800: oklch(0.3 0.14 165);
+  --brand-900: oklch(0.2 0.1 165);
+  --brand-950: oklch(0.1 0.06 165);
+
+  --accent-primary: oklch(0.6 0.18 165);
 }
 
 @layer base {

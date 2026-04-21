@@ -31,8 +31,9 @@ export function EmployeeDashboard() {
   const goalsInProgress = goals.filter(g => g.status === 'IN_PROGRESS').length
 
   const getActionLabel = (status: string) => {
-    if (status === 'PENDING' || status === 'EMPLOYEE_DRAFT') return 'Continue Self Assessment'
-    if (status === 'APPROVED') return 'Acknowledge'
+    if (status === 'GOALS_APPROVED') return 'Start Self Assessment'
+    if (status === 'SELF_SUBMITTED') return 'Review Submission'
+    if (status === 'FINALIZED') return 'View Report'
     return 'View Details'
   }
 
@@ -42,7 +43,7 @@ export function EmployeeDashboard() {
   }
 
   const getActionPath = (id: number, status: string) => {
-    if (status === 'PENDING' || status === 'EMPLOYEE_DRAFT') return `/employee/appraisals/${id}/self-assessment`
+    if (status === 'GOALS_APPROVED') return `/employee/appraisals/${id}/self-assessment`
     return `/employee/appraisals/${id}`
   }
 
@@ -54,7 +55,7 @@ export function EmployeeDashboard() {
       </div>
 
       {/* Appraisal Guide */}
-      <Card className="bg-gradient-to-br from-violet-600 to-indigo-700 text-white border-none shadow-lg shadow-violet-200 overflow-hidden relative">
+      <Card className="bg-gradient-to-br from-violet-600 to-violet-800 text-white border-none shadow-lg shadow-violet-200 overflow-hidden relative">
         <div className="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
           <ClipboardList size={120} />
         </div>
@@ -100,7 +101,7 @@ export function EmployeeDashboard() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         {[
-          { label: 'Active Appraisals', value: activeAppraisals, icon: ClipboardList, color: 'text-blue-600' },
+          { label: 'Active Appraisals', value: activeAppraisals, icon: ClipboardList, color: 'text-violet-600' },
           { label: 'Total Active Goals', value: totalGoals, icon: Gem, color: 'text-violet-600' },
           { label: 'Goals In Progress', value: goalsInProgress, icon: Target, color: 'text-amber-600' },
         ].map(({ label, value, icon: Icon, color }) => (

@@ -18,13 +18,14 @@ export function AppraisalsPage() {
   })
 
   const getActionLabel = (status: string) => {
-    if (status === 'PENDING' || status === 'EMPLOYEE_DRAFT') return 'Continue Self Assessment'
-    if (status === 'APPROVED') return 'Acknowledge'
+    if (status === 'GOALS_APPROVED') return 'Start Self Assessment'
+    if (status === 'SELF_SUBMITTED') return 'Review Submission'
+    if (status === 'FINALIZED') return 'View Report'
     return 'View Details'
   }
 
   const getActionPath = (id: number, status: string) => {
-    if (status === 'PENDING' || status === 'EMPLOYEE_DRAFT') return `/employee/appraisals/${id}/self-assessment`
+    if (status === 'GOALS_APPROVED') return `/employee/appraisals/${id}/self-assessment`
     return `/employee/appraisals/${id}`
   }
 
@@ -63,7 +64,7 @@ export function AppraisalsPage() {
                     </div>
                   </div>
                   <Button
-                    variant={a.appraisalStatus === 'PENDING' || a.appraisalStatus === 'EMPLOYEE_DRAFT' || a.appraisalStatus === 'APPROVED' ? 'default' : 'outline'}
+                    variant={a.appraisalStatus === 'GOALS_APPROVED' ? 'default' : 'outline'}
                     onClick={() => navigate(getActionPath(a.id, a.appraisalStatus))}
                   >
                     {getActionLabel(a.appraisalStatus)}
