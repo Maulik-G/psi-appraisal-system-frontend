@@ -1,21 +1,17 @@
 import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
-import { getUsers } from '../../api/users'
 import { getCycleSummary, getDepartmentReport, getRatingDistribution, getPendingReport } from '../../api/reports'
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
 import { Button } from '../../components/ui/button'
-import { Select } from '../../components/ui/select'
 import { StatusBadge } from '../../components/StatusBadge'
-import { RatingStars } from '../../components/RatingStars'
 import { Progress } from '../../components/ui/progress'
-import { BarChart3, Users, Clock, CheckCircle, TrendingUp, AlertCircle } from 'lucide-react'
+import { BarChart3, Clock, CheckCircle, TrendingUp, AlertCircle } from 'lucide-react'
 
 export function HRReportsPage() {
   const [cycleName, setCycleName] = useState('')
   const [submitted, setSubmitted] = useState('')
 
   // Get unique cycle names from all appraisals
-  const { data: users = [] } = useQuery({ queryKey: ['users'], queryFn: getUsers })
 
   const { data: summary, isLoading: loadingSummary } = useQuery({
     queryKey: ['report-summary', submitted],
@@ -99,7 +95,7 @@ export function HRReportsPage() {
               {[
                 { label: 'Total Appraisals', value: summary.totalAppraisals, icon: BarChart3, color: 'text-slate-600' },
                 { label: 'Completion', value: `${summary.completionPercentage}%`, icon: TrendingUp, color: 'text-emerald-600' },
-                { label: 'Pending Action', value: summary.pending + summary.employeeDraft + summary.selfSubmitted + summary.managerDraft, icon: Clock, color: 'text-amber-600' },
+                { label: 'Pending Action', value: summary.draft + summary.goalsApproved + summary.selfSubmitted + summary.managerReviewed, icon: Clock, color: 'text-amber-600' },
                 { label: 'Avg Rating', value: summary.averageManagerRating ? `${summary.averageManagerRating}/5` : '—', icon: CheckCircle, color: 'text-blue-600' },
               ].map(({ label, value, icon: Icon, color }) => (
                 <Card key={label}>
@@ -123,13 +119,11 @@ export function HRReportsPage() {
             <CardContent>
               <div className="space-y-3">
                 {[
-                  { label: 'Pending', value: summary.pending, color: 'bg-slate-200' },
-                  { label: 'Employee Draft', value: summary.employeeDraft, color: 'bg-amber-300' },
+                  { label: 'Draft', value: summary.draft, color: 'bg-slate-200' },
+                  { label: 'Goals Approved', value: summary.goalsApproved, color: 'bg-amber-300' },
                   { label: 'Self Submitted', value: summary.selfSubmitted, color: 'bg-blue-300' },
-                  { label: 'Manager Draft', value: summary.managerDraft, color: 'bg-orange-300' },
                   { label: 'Manager Reviewed', value: summary.managerReviewed, color: 'bg-violet-300' },
-                  { label: 'Approved', value: summary.approved, color: 'bg-emerald-400' },
-                  { label: 'Acknowledged', value: summary.acknowledged, color: 'bg-emerald-600' },
+                  { label: 'Finalized', value: summary.finalized, color: 'bg-emerald-600' },
                 ].map(({ label, value, color }) => (
                   <div key={label} className="flex items-center gap-3">
                     <span className="text-xs text-violet-700/80 w-36 shrink-0">{label}</span>

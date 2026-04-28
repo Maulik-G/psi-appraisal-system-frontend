@@ -5,11 +5,13 @@ interface RatingStarsProps {
   value: number
   onChange?: (v: number) => void
   readonly?: boolean
+  size?: number
+  className?: string
 }
 
-export function RatingStars({ value, onChange, readonly = false }: RatingStarsProps) {
+export function RatingStars({ value, onChange, readonly = false, size = 18, className }: RatingStarsProps) {
   return (
-    <div className="flex gap-0.5">
+    <div className={cn("flex gap-0.5", className)}>
       {[1, 2, 3, 4, 5].map(star => (
         <button
           key={star}
@@ -22,7 +24,7 @@ export function RatingStars({ value, onChange, readonly = false }: RatingStarsPr
           )}
         >
           <Star
-            size={18}
+            size={size}
             className={cn(
               'transition-colors',
               star <= value ? 'fill-slate-900 text-violet-950' : 'text-slate-200 fill-slate-100'

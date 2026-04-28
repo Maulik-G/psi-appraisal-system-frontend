@@ -16,13 +16,11 @@ import api from '../../api/axios'
 
 const STATUS_OPTIONS: { value: AppraisalStatus | 'ALL'; label: string }[] = [
   { value: 'ALL', label: 'All Statuses' },
-  { value: 'PENDING', label: 'Pending' },
-  { value: 'EMPLOYEE_DRAFT', label: 'Employee Draft' },
+  { value: 'DRAFT', label: 'Draft' },
+  { value: 'GOALS_APPROVED', label: 'Goals Approved' },
   { value: 'SELF_SUBMITTED', label: 'Self Submitted' },
-  { value: 'MANAGER_DRAFT', label: 'Manager Draft' },
   { value: 'MANAGER_REVIEWED', label: 'Manager Reviewed' },
-  { value: 'APPROVED', label: 'Approved' },
-  { value: 'ACKNOWLEDGED', label: 'Acknowledged' },
+  { value: 'FINALIZED', label: 'Finalized' },
 ]
 
 export function ManageAppraisalsPage() {
@@ -112,7 +110,7 @@ export function ManageAppraisalsPage() {
 
   const getCycleStats = (appraisals: Appraisal[]) => {
     const total = appraisals.length
-    const done = appraisals.filter(a => a.appraisalStatus === 'APPROVED' || a.appraisalStatus === 'ACKNOWLEDGED').length
+    const done = appraisals.filter(a => a.appraisalStatus === 'FINALIZED').length
     const needsApproval = appraisals.filter(a => a.appraisalStatus === 'MANAGER_REVIEWED').length
     return { total, done, needsApproval, pct: total > 0 ? Math.round((done / total) * 100) : 0 }
   }

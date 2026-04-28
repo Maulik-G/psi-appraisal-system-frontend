@@ -8,7 +8,7 @@ import { Textarea } from '../../components/ui/textarea'
 import { RatingStars } from '../../components/RatingStars'
 import { StatusBadge } from '../../components/StatusBadge'
 import { format } from 'date-fns'
-import { ArrowLeft, Save, Send } from 'lucide-react'
+import { ArrowLeft, Save, Send, Clock } from 'lucide-react'
 import { toast } from 'sonner'
 import { useAuth } from '../../context/AuthContext'
 

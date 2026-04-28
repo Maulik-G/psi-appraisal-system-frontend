@@ -184,7 +184,7 @@ export function ManagerDashboard() {
                             <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Self Rating</p>
                             <RatingStars value={a.selfRating || 0} readonly className="mt-1" />
                           </div>
-                          {a.managerRating > 0 && (
+                          {a.managerRating !== null && a.managerRating > 0 && (
                             <div>
                               <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">My Rating</p>
                               <RatingStars value={a.managerRating} readonly className="mt-1" />

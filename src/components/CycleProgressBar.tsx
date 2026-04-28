@@ -33,7 +33,7 @@ export function CycleProgressBar({ currentStatus }: { currentStatus: AppraisalSt
           {STEPS.map((step, i) => {
             const isCompleted = i < currentIndex
             const isCurrent = i === currentIndex
-            const isUpcoming = i > currentIndex
+            // const isUpcoming = i > currentIndex
 
             return (
               <div key={step.id} className="flex flex-col items-center group">

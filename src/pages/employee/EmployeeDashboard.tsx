@@ -26,7 +26,7 @@ export function EmployeeDashboard() {
   })
 
 
-  const activeAppraisals = appraisals.filter(a => a.appraisalStatus !== 'ACKNOWLEDGED').length
+  const activeAppraisals = appraisals.filter(a => a.appraisalStatus !== 'FINALIZED').length
   const totalGoals = goals.filter(g => g.status !== 'COMPLETED' && g.status !== 'CANCELLED').length
   const goalsInProgress = goals.filter(g => g.status === 'IN_PROGRESS').length
 
@@ -38,7 +38,7 @@ export function EmployeeDashboard() {
   }
 
   const getActionVariant = (status: string): 'default' | 'outline' => {
-    if (status === 'PENDING' || status === 'EMPLOYEE_DRAFT' || status === 'APPROVED') return 'default'
+    if (status === 'DRAFT' || status === 'GOALS_APPROVED' || status === 'MANAGER_REVIEWED') return 'default'
     return 'outline'
   }
 

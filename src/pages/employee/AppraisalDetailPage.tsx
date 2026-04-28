@@ -1,8 +1,7 @@
 import { useParams, useNavigate } from 'react-router-dom'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { getAppraisalById, acknowledgeAppraisal } from '../../api/appraisals'
+import { getAppraisalById } from '../../api/appraisals'
 import { getGoalsByAppraisal, updateGoalProgress } from '../../api/goals'
-import { getFeedbackByAppraisal } from '../../api/feedback'
 import { Card, CardContent, CardHeader, CardTitle } from '../../components/ui/card'
 import { Button } from '../../components/ui/button'
 import { StatusBadge, GoalStatusBadge } from '../../components/StatusBadge'
@@ -39,20 +38,17 @@ export function EmployeeAppraisalDetailPage() {
     queryFn: () => getGoalsByAppraisal(appraisalId),
   })
 
-  const { data: feedbacks = [] } = useQuery({
-    queryKey: ['feedback', appraisalId],
-    queryFn: () => getFeedbackByAppraisal(appraisalId),
-  })
+  // Removed unused feedbacks query
 
-  const acknowledge = useMutation({
-    mutationFn: () => acknowledgeAppraisal(appraisalId, user!.id),
-    onSuccess: () => {
-      toast.success('Appraisal acknowledged')
-      qc.invalidateQueries({ queryKey: ['appraisal', appraisalId] })
-      qc.invalidateQueries({ queryKey: ['my-appraisals'] })
-    },
-    onError: () => toast.error('Failed to acknowledge'),
-  })
+  // const acknowledge = useMutation({
+  //   mutationFn: () => acknowledgeAppraisal(appraisalId, user!.id),
+  //   onSuccess: () => {
+  //     toast.success('Appraisal acknowledged')
+  //     qc.invalidateQueries({ queryKey: ['appraisal', appraisalId] })
+  //     qc.invalidateQueries({ queryKey: ['my-appraisals'] })
+  //   },
+  //   onError: () => toast.error('Failed to acknowledge'),
+  // })
 
   const updateStatus = useMutation({
     mutationFn: () => updateGoalProgress(statusGoal!.id, user!.id, { status: newStatus }),
@@ -239,7 +235,7 @@ export function EmployeeAppraisalDetailPage() {
 
         {/* Sidebar */}
         <div className="space-y-6">
-          {appraisals === null &&  ( // Calibration note logic placeholder
+          {appraisal === null &&  ( // Calibration note logic placeholder
              <Card className="border-none shadow-sm bg-indigo-900 text-white">
                 <CardHeader><CardTitle className="text-sm opacity-60 uppercase tracking-widest">HR Update</CardTitle></CardHeader>
                 <CardContent><p className="text-sm font-medium italic opacity-80">"Your appraisal is currently in HR Calibration. Final scores will be released soon."</p></CardContent>
