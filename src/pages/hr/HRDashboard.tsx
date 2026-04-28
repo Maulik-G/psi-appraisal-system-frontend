@@ -8,8 +8,7 @@ import { Button } from '../../components/ui/button'
 import { Select } from '../../components/ui/select'
 import { StatusBadge } from '../../components/StatusBadge'
 import { RatingStars } from '../../components/RatingStars'
-import { format } from 'date-fns'
-import { Users, ClipboardCheck, Clock, CheckCircle, X, BarChart3, TrendingUp, AlertTriangle } from 'lucide-react'
+import { Users, Clock, CheckCircle, X, BarChart3, TrendingUp, AlertTriangle } from 'lucide-react'
 import { toast } from 'sonner'
 import type { Appraisal, AppraisalStatus } from '../../types'
 import { useState, useEffect, useMemo } from 'react'
@@ -34,23 +33,22 @@ export function HRDashboard() {
   const { data: users = [] } = useQuery({ queryKey: ['users'], queryFn: getUsers })
   const { data: departments = [] } = useQuery({ queryKey: ['departments'], queryFn: getDepartments })
 
-  const fetchAppraisals = async () => {
-    const employees = users.filter(u => u.role === 'EMPLOYEE' || u.role === 'MANAGER')
-    if (employees.length === 0) return
-    try {
-      const results = await Promise.all(
-        employees.map(e =>
-          api.get<ApiResponse<Appraisal[]>>(`/api/appraisals/my?employeeId=${e.id}`)
-            .then(r => r.data.data).catch(() => [])
-        )
-      )
-      setAppraisals(results.flat())
-    } catch (e) {
-      console.error(e)
-    }
-  }
-
   useEffect(() => {
+    const fetchAppraisals = async () => {
+      const employees = users.filter(u => u.role === 'EMPLOYEE' || u.role === 'MANAGER')
+      if (employees.length === 0) return
+      try {
+        const results = await Promise.all(
+          employees.map(e =>
+            api.get<ApiResponse<Appraisal[]>>(`/api/appraisals/my?employeeId=${e.id}`)
+              .then(r => r.data.data).catch(() => [])
+          )
+        )
+        setAppraisals(results.flat())
+      } catch (e) {
+        console.error(e)
+      }
+    }
     fetchAppraisals()
   }, [users])
 
@@ -59,7 +57,7 @@ export function HRDashboard() {
       approveAppraisal(id, { hrComments: comments || 'Approved by HR', finalRating: rating }),
     onSuccess: () => {
       toast.success('Appraisal finalized and published')
-      fetchAppraisals()
+      queryClient.invalidateQueries({ queryKey: ['users'] })
       queryClient.invalidateQueries({ queryKey: ['team-appraisals'] })
     },
     onError: () => toast.error('Failed to finalize'),
@@ -77,10 +75,7 @@ export function HRDashboard() {
 
   const maxCount = Math.max(...distribution, 1)
 
-  const cycleNames = useMemo(() =>
-    [...new Set(appraisals.map(a => a.cycleName))].sort(),
-    [appraisals]
-  )
+
 
   const filtered = useMemo(() => {
     return appraisals
@@ -177,7 +172,7 @@ export function HRDashboard() {
                       </div>
                       <div className="mt-4 text-center">
                         <div className="flex justify-center mb-1">
-                          <RatingStars value={i + 1} readonly size={12} />
+                          <RatingStars value={i + 1} readonly />
                         </div>
                         <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Score {i + 1}</p>
                       </div>
@@ -265,8 +260,8 @@ export function HRDashboard() {
                       </td>
                       <td className="py-4 px-6 font-medium text-slate-600">{a.managerName}</td>
                       <td className="py-4 px-6"><StatusBadge status={a.appraisalStatus} /></td>
-                      <td className="py-4 px-6"><RatingStars value={a.selfRating || 0} readonly size={12} /></td>
-                      <td className="py-4 px-6"><RatingStars value={a.managerRating || 0} readonly size={12} /></td>
+                      <td className="py-4 px-6"><RatingStars value={a.selfRating || 0} readonly /></td>
+                      <td className="py-4 px-6"><RatingStars value={a.managerRating || 0} readonly /></td>
                       <td className="py-4 px-6">
                         <div className="flex items-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                            <Button 
